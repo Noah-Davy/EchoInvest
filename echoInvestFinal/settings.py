@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'app_advisor',
     'app_user',
     'app_portfolio',
-    'django-heroku',
 ]
 
 MIDDLEWARE = [
