@@ -51,7 +51,7 @@ body {
 .nav-item-button {
     background-color: #003c71;
     color: #fff;
-    border: none;
+    border-radius: 10px;
     padding: 10px 20px;
     align-items: center;
     justify-content: center;
