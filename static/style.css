@@ -1,8 +1,8 @@
 body {
-    margin: 0;
     text-align: center;
     font-family: 'Poppins-Medium', sans-serif;
     font-size: 14px;
+    margin: 5px 0 0;
     font-weight: 500;
 }
 
@@ -10,7 +10,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Updated darker blue color */
     padding: 10px 20px;
 }
 
@@ -22,7 +21,7 @@ body {
 }
 
 .navbar-brand img {
-    height: 50px; /* Adjust as needed */
+    height: 50px;
     margin-right: 10px;
 }
 
@@ -32,25 +31,33 @@ body {
 
 .nav-item {
     text-decoration: none;
+    margin-top: 10px;
     margin-left: 20px;
+    margin-right: 20px;
     color: #1b1b1b;
     padding: 8px 16px;
+    text-align: center;
     border-radius: 4px;
     transition: background-color 0.2s;
+    position: relative;
+    justify-content: center;
+
 }
 
 .nav-item:hover {
-    background-color: #3b506e; /* Slightly lighter blue for hover effect */
+    background-color: #0056b3;
 }
 
 .nav-item-button {
-    background-color: #003c71; /* Preserving the button color */
+    background-color: #003c71;
     color: #fff;
-    border: none; /* Assuming no border for the button */
-    padding: 10px 20px; /* Assuming larger padding for the button */
-    text-transform: uppercase; /* Assuming uppercase text for the button */
+    border: none;
+    padding: 10px 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
 }
 
 .nav-item-button:hover {
-    background-color: #0056b3; /* Preserving the hover color */
+    background-color: #0056b3;
 }
