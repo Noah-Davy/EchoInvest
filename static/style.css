@@ -1,6 +1,8 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins-Medium', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .navbar {
@@ -41,7 +43,7 @@ body {
 }
 
 .nav-item-button {
-    background-color: #007bff; /* Preserving the button color */
+    background-color: #003c71; /* Preserving the button color */
     color: #fff;
     border: none; /* Assuming no border for the button */
     padding: 10px 20px; /* Assuming larger padding for the button */
