@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2a3f5d; /* Updated darker blue color */
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff; /* Assuming a light color for the brand name to contrast the dark background */
+}
+
+.navbar-brand img {
+    height: 50px; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.navbar-nav {
+    display: flex;
+}
+
+.nav-item {
+    text-decoration: none;
+    margin-left: 20px;
+    color: #fff; /* Assuming a light color for the nav items to contrast the dark background */
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+    background-color: #3b506e; /* Slightly lighter blue for hover effect */
+}
+
+.nav-item-button {
+    background-color: #007bff; /* Preserving the button color */
+    color: #fff;
+    border: none; /* Assuming no border for the button */
+    padding: 10px 20px; /* Assuming larger padding for the button */
+    text-transform: uppercase; /* Assuming uppercase text for the button */
+}
+
+.nav-item-button:hover {
+    background-color: #0056b3; /* Preserving the hover color */
+}

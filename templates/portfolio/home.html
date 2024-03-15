@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoInvest</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <header>
+        <nav class="navbar">
+            <a href="{% url 'home' %}" class="navbar-brand">
+                <img src="{% static 'nav_logo 1.png' %}" alt="Echo Invest Logo">
+            </a>
+            <div class="navbar-nav">
+                <a href="{% url 'home' %}" class="nav-item">Home</a>
+                <a href="{% url 'home' %}" class="nav-item">How it works</a>
+                <a href="{% url 'home' %}" class="nav-item">Blog</a>
+                <a href="{% url 'home' %}" class="nav-item">FAQ</a>
+                <a href="{% url 'home' %}" class="nav-item">Log in</a>
+                <a href="{% url 'home' %}" class="nav-item nav-item-button">Get started</a>
+            </div>
+        </nav>
+    </header>
+  </body>
+</html>
