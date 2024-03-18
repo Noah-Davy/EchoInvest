@@ -1,9 +1,10 @@
-body {
+body, html {
     text-align: center;
     font-family: 'Poppins-Medium', sans-serif;
     font-size: 14px;
     margin: 5px 0 0;
     font-weight: 500;
+
 }
 
 .navbar {
@@ -60,4 +61,25 @@ body {
 
 .nav-item-button:hover {
     background-color: #0056b3;
+}
+
+
+
+.illustration,
+.illustration * {
+    box-sizing: border-box;
+}
+
+.illustration {
+    height: auto;
+    position: absolute; /* Make sure it doesn't affect the flow of other elements */
+    top: 0; /* Align to the top of the container */
+    left: 0; /* Align to the left of the container */
+    z-index: -1; /* Ensure it stays behind other content */
+    overflow: visible;
+}
+
+header, .content, footer {
+    position: relative; /* Ensure these elements are positioned above the illustration */
+    z-index: 1;
 }
