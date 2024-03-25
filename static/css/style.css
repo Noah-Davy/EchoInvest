@@ -131,7 +131,7 @@ header, .content, footer {
     padding: 10px 20px; /* Button padding */
     border-radius: 10px; /* Rounded corners for the button */
     display: inline-block; /* Allows for padding and margin settings */
-    font-family: 'Poppins-Medium', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 17px;
 }
 
@@ -146,32 +146,44 @@ header, .content, footer {
 }
 
 .how-it-works {
-  background-color: #f8f9fd; /* Slightly off-white background similar to the screenshot */
+  background-color: transparent; /* Slightly off-white background similar to the screenshot */
   padding: 50px 0; /* Spacing around the section */
 }
 
 .how-it-works .container {
-  max-width: 1200px; /* Maximum width of the content */
-  margin: 0 auto; /* Center the container */
-  padding: 0 15px; /* Padding on the sides */
+    max-width: 1200px; /* Maximum width of the content */
+    margin: 0 auto; /* Center the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align the content */
 }
 
 .how-it-works h2 {
-  font-family: 'Poppins-Medium', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #2c3030; /* Dark text color */
   text-align: center;
+  font-size: 32px;
   margin-bottom: 40px; /* Spacing below the title */
 }
 
 .steps {
-  display: flex;
-  justify-content: space-around; /* Space out the steps */
-  flex-wrap: wrap; /* Wrap onto the next line on smaller screens */
+    display: flex;
+    justify-content: center;
+    gap: 50px; /* Space between each step */
+    flex-wrap: wrap; /* Wrap onto the next line for smaller screens */
+    margin-top: 30px; /* Spacing after the title */
 }
 
 .step {
-  flex-basis: 30%; /* Take up roughly a third of the container width */
-  text-align: center; /* Center-align the text */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align text to the left */
+    max-width: 200px; /* Maximum width of each step */
+    background-color: #ffffff; /* Card background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Drop shadow for depth */
+    border-radius: 15px; /* Rounded corners for the card */
+    padding: 20px; /* Padding inside the card */
+    margin: 20px 0; /* Margin around the card */
 }
 
 .step-number {
@@ -188,14 +200,16 @@ header, .content, footer {
 }
 
 .step-title {
-  font-family: 'Poppins-Medium', sans-serif;
-    font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  text-align: center;
   color: #2c3030;
-  margin-bottom: 10px; /* Spacing between the title and the description */
+  width: 100%;
+  margin-bottom: 0; /* Spacing between the title and the description */
 }
 
 .step p {
-  font-family: 'Poppins-Regular', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 16px;
   color: #6c757d; /* Grey text color for the description */
   line-height: 1.5;
@@ -210,6 +224,18 @@ header, .content, footer {
   .invest-intro-container {
         padding-left: 5%; /* Less padding on smaller screens */
     }
+ .how-it-works .container {
+    padding: 0 30px; / Add padding on smaller screens */
+    }
+ .steps {
+    flex-direction: column;
+    align-items: center;
+ }
+
+ .step {
+    max-width: none; /* Allow the step to take the container's width */
+    align-items: center; /* Center-align items in a column layout */
+    }
 }
 
 @media (max-width: 768px) {
@@ -221,14 +247,17 @@ header, .content, footer {
     width: 35px; /* Smaller circle for the step number */
     height: 35px; /* Smaller circle for the step number */
     font-size: 20px; /* Smaller font size for the number */
+    margin-bottom: 10px;
   }
 
   .step-title {
     font-size: 17px; /* Smaller font size for the title */
+    text-align: center;
   }
 
   .step p {
     font-size: 14px; /* Smaller font size for the description */
+    text-align: center;
   }
   .invest-intro-container {
         padding-left: 3%; /* Even less padding on very small screens */
