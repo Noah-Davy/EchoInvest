@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EchoInvest</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
   </head>
   <body>
     <svg class="illustration" width="1554" height="1162" viewBox="0 0 1554 1162" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M139.5 827C139.5 827 823.162 156.765 896.237 122.723C1010.56 69.4642 1105.53 167.221 1219.05 112.262C1275.97 84.7049 1347.43 13.4419 1347.43 13.4419" stroke="#F2F5FE" />
@@ -73,31 +74,7 @@
 
 
     </main>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const hamburger = document.querySelector('.hamburger');
-    const navItems = document.querySelector('.navbar-nav');
 
-    hamburger.addEventListener('click', function () {
-        // Toggle the 'active' class instead of changing the style directly
-        navItems.classList.toggle('active');
-    });
-
-    // Function to handle the resize event
-    function handleResize() {
-        // If the window width is more than 768px and navItems contains the 'active' class
-        if (window.innerWidth > 768 && navItems.classList.contains('active')) {
-            // Remove the 'active' class and the inline 'display' style
-            navItems.classList.remove('active');
-            navItems.style.display = '';
-        }
-    }
-
-    // Add event listener for the window resize event
-    window.addEventListener('resize', handleResize);
-    });
-
-  </script>
   </body>
 
 </html>
