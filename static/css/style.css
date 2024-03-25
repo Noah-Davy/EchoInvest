@@ -166,6 +166,17 @@ header, .content, footer {
   margin-bottom: 40px; /* Spacing below the title */
 }
 
+.how-it-works-description {
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    color: #6c757d; /* Adjust the color as per your design */
+    text-align: center; /* Center-align the text */
+    max-width: 800px; /* Adjust the width as necessary */
+    margin: 0 auto 30px; /* Center the paragraph and add space below it */
+    line-height: 1.5;
+}
+
+
 .steps {
     display: flex;
     justify-content: center;
@@ -177,7 +188,7 @@ header, .content, footer {
 .step {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align text to the left */
+    align-items: center; /* Align text to the left */
     max-width: 200px; /* Maximum width of each step */
     background-color: #ffffff; /* Card background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Drop shadow for depth */
@@ -314,3 +325,280 @@ header, .content, footer {
 }
 
 
+
+.investing-bro-1,
+.investing-bro-1 * {
+    box-sizing: border-box;
+}
+
+.investing-bro-1 {
+    height: 453px;
+    position: relative;
+    overflow: hidden;
+    padding-right: 50%;
+}
+
+.freepik-background-simple-inject-31 {
+    width: 88.69%;
+    height: 77.49%;
+    position: absolute;
+    right: 5.74%;
+    left: 5.57%;
+    bottom: 10.05%;
+    top: 12.46%;
+    overflow: visible;
+}
+
+.freepik-bubble-inject-31 {
+    width: 18.7%;
+    height: 16.26%;
+    position: absolute;
+    right: 41.22%;
+    left: 40.08%;
+    bottom: 65.63%;
+    top: 18.11%;
+    overflow: visible;
+}
+
+.freepik-character-inject-31 {
+    width: 56.55%;
+    height: 67.44%;
+    position: absolute;
+    right: 15.45%;
+    left: 28%;
+    bottom: 10.02%;
+    top: 22.54%;
+    overflow: visible;
+}
+
+.freepik-table-inject-31 {
+    width: 85.6%;
+    height: 0%;
+    position: absolute;
+    right: 7.2%;
+    left: 7.2%;
+    bottom: 10.02%;
+    top: 89.98%;
+    overflow: visible;
+}
+
+.freepik-plant-inject-31 {
+    width: 67.79%;
+    height: 38.22%;
+    position: absolute;
+    right: 16.11%;
+    left: 16.1%;
+    bottom: 10.02%;
+    top: 51.75%;
+    overflow: visible;
+}
+
+.savings-bro-1,
+.savings-bro-1 * {
+    box-sizing: border-box;
+}
+
+.savings-bro-1 {
+    height: 452px;
+    position: relative;
+    overflow: hidden;
+}
+
+.freepik-background-simple-inject-2 {
+    width: 89.09%;
+    height: 84.61%;
+    position: absolute;
+    right: 5.8%;
+    left: 5.12%;
+    bottom: 8.61%;
+    top: 6.78%;
+    overflow: visible;
+}
+
+.freepik-plants-inject-2 {
+    width: 18.66%;
+    height: 49.61%;
+    position: absolute;
+    right: 10.54%;
+    left: 70.81%;
+    bottom: 7.56%;
+    top: 42.83%;
+    overflow: visible;
+}
+
+.freepik-piggy-bank-inject-2 {
+    width: 45.79%;
+    height: 42.54%;
+    position: absolute;
+    right: 35.67%;
+    left: 18.55%;
+    bottom: 7.55%;
+    top: 49.91%;
+    overflow: visible;
+}
+
+.freepik-hand-inject-2 {
+    width: 40.6%;
+    height: 44.03%;
+    position: absolute;
+    right: 24.2%;
+    left: 35.2%;
+    bottom: 50.76%;
+    top: 5.22%;
+    overflow: visible;
+}
+
+.freepik-floor-inject-2 {
+    width: 86.2%;
+    height: 0%;
+    position: absolute;
+    right: 6.6%;
+    left: 7.2%;
+    bottom: 7.56%;
+    top: 92.44%;
+    overflow: visible;
+}
+
+.search-engines-bro-1,
+.search-engines-bro-1 * {
+    box-sizing: border-box;
+}
+
+.search-engines-bro-1 {
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.freepik-background-simple-inject-63 {
+    width: 71.94%;
+    height: 56.89%;
+    position: absolute;
+    right: 13.23%;
+    left: 14.83%;
+    bottom: 21.72%;
+    top: 21.4%;
+    overflow: visible;
+}
+
+.freepik-shadow-inject-63 {
+    width: 78%;
+    height: 3.2%;
+    position: absolute;
+    right: 9.81%;
+    left: 12.19%;
+    bottom: 17.12%;
+    top: 79.68%;
+    overflow: visible;
+}
+
+.freepik-plants-inject-63 {
+    width: 77.02%;
+    height: 47.3%;
+    position: absolute;
+    right: 13.92%;
+    left: 9.07%;
+    bottom: 18.8%;
+    top: 33.9%;
+    overflow: visible;
+}
+
+.freepik-device-inject-63 {
+    width: 48.1%;
+    height: 43.9%;
+    position: absolute;
+    right: 26.75%;
+    left: 25.15%;
+    bottom: 18.81%;
+    top: 37.29%;
+    overflow: visible;
+}
+
+.freepik-search-engines-inject-63 {
+    width: 77.97%;
+    height: 59.91%;
+    position: absolute;
+    right: 9.49%;
+    left: 12.54%;
+    bottom: 23.85%;
+    top: 16.23%;
+    overflow: visible;
+}
+
+.why-choose-container h2{
+text-align: center;
+font-family: 'Poppins', sans-serif;
+font-size: 32px;
+}
+
+.why-choose-container .content-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.illustration-wrapper {
+    flex: 0 0 50%; /* Adjust the width as needed */
+}
+
+.text-content {
+    flex: 1;
+    padding-left: 20px; /* Adjust the spacing as needed */
+    max-width: 40rem;
+}
+
+.text-content p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    text-align: justify;
+}
+
+.fees-container .fees-content-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.fees-illustration-wrapper{
+    flex:0 0 50%;
+    order:2;
+    padding-left:220px;
+}
+
+.fees-text-content{
+    flex:1;
+    order:1;
+    padding-left:220px;
+    max-width: 40rem;
+}
+
+.fees-text-content p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    text-align: justify;
+}
+
+.rates-content-wrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rates-illustration-wrapper{
+    flex:0 0 50%;
+    padding-left: 20px;
+    padding-bottom: 0;
+}
+
+.rates-text-content{
+    flex:1;
+    justify-content: flex-start;
+    padding-left: 100px; /* Adjust the spacing as needed */
+    padding-bottom: 100px;
+}
+
+.rates-text-content p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    text-align: justify;
+    max-width: 40rem;
+}
