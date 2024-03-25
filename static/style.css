@@ -5,6 +5,9 @@ body, html {
     margin: 5px 0 0;
     font-weight: 500;
     position: relative;
+    -webkit-font-smoothing: antialiased; /* for Chrome and Safari */
+    -moz-osx-font-smoothing: grayscale; /* for Firefox */
+    text-rendering: optimizeLegibility;
 
 }
 
@@ -84,3 +87,156 @@ header, .content, footer {
     position: relative; /* Ensure these elements are positioned above the illustration */
     z-index: 2;
 }
+.invest-intro-container {
+    display: flex;
+    justify-content: flex-start; /* Align to the left */
+    padding-left: 10%; /* Add some padding to the left */
+    background-color: transparent; /* Assuming a transparent background */
+}
+
+.invest-intro {
+    max-width: 600px; /* Control the width of the content */
+    text-align: left; /* Align text to the left */
+    padding: 100px 0; /* Add padding to the top and bottom */
+}
+
+
+.invest-intro h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    color: #1b1b1b;
+    margin-bottom: 20px;
+}
+
+.invest-intro p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    color: #1b1b1b;
+    margin-bottom: 20px; /* Spacing between paragraph and button */
+}
+
+.btn-get-started {
+    background-color: #003c71; /* Button background color */
+    color: white; /* Button text color */
+    text-decoration: none; /* Remove underline from the link */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 10px; /* Rounded corners for the button */
+    display: inline-block; /* Allows for padding and margin settings */
+    font-family: 'Poppins-Medium', sans-serif;
+    font-size: 17px;
+}
+
+/* Add media query for responsiveness if needed */
+@media (max-width: 768px) {
+  .invest-intro h1 {
+    font-size: 1.5em;
+  }
+  .invest-intro p {
+    font-size: 0.9em;
+  }
+}
+
+.how-it-works {
+  background-color: #f8f9fd; /* Slightly off-white background similar to the screenshot */
+  padding: 50px 0; /* Spacing around the section */
+}
+
+.how-it-works .container {
+  max-width: 1200px; /* Maximum width of the content */
+  margin: 0 auto; /* Center the container */
+  padding: 0 15px; /* Padding on the sides */
+}
+
+.how-it-works h2 {
+  font-family: 'Poppins-Medium', sans-serif;
+  color: #2c3030; /* Dark text color */
+  text-align: center;
+  margin-bottom: 40px; /* Spacing below the title */
+}
+
+.steps {
+  display: flex;
+  justify-content: space-around; /* Space out the steps */
+  flex-wrap: wrap; /* Wrap onto the next line on smaller screens */
+}
+
+.step {
+  flex-basis: 30%; /* Take up roughly a third of the container width */
+  text-align: center; /* Center-align the text */
+}
+
+.step-number {
+  font-size: 24px; /* Large font size for the step number */
+  color: #003c71; /* Color for the step number */
+  background-color: #ffffff; /* White background for the circle */
+  border-radius: 50%; /* Make it circular */
+  width: 40px; /* Width of the circle */
+  height: 40px; /* Height of the circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px; /* Center the circle and add spacing below */
+}
+
+.step-title {
+  font-family: 'Poppins-Medium', sans-serif;
+    font-size: 18px;
+  color: #2c3030;
+  margin-bottom: 10px; /* Spacing between the title and the description */
+}
+
+.step p {
+  font-family: 'Poppins-Regular', sans-serif;
+  font-size: 16px;
+  color: #6c757d; /* Grey text color for the description */
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .steps .step {
+    flex-basis: 100%; /* Each step takes full width on smaller screens */
+    margin-bottom: 40px; /* Spacing between each step */
+  }
+  .invest-intro-container {
+        padding-left: 5%; /* Less padding on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+  .how-it-works h2 {
+    font-size: 24px; /* Smaller font size for the title on smaller screens */
+  }
+
+  .step-number {
+    width: 35px; /* Smaller circle for the step number */
+    height: 35px; /* Smaller circle for the step number */
+    font-size: 20px; /* Smaller font size for the number */
+  }
+
+  .step-title {
+    font-size: 17px; /* Smaller font size for the title */
+  }
+
+  .step p {
+    font-size: 14px; /* Smaller font size for the description */
+  }
+  .invest-intro-container {
+        padding-left: 3%; /* Even less padding on very small screens */
+        padding-right: 3%; /* Add padding to the right as well */
+    }
+  .invest-intro {
+        padding: 50px 0; /* Less vertical padding on smaller screens */
+    }
+  .invest-intro h1 {
+        font-size: 28px; /* Slightly smaller font size */
+    }
+  .invest-intro p {
+        font-size: 16px; /* Slightly smaller font size */
+    }
+  .btn-get-started {
+        font-size: 15px; /* Slightly smaller font size */
+    }
+}
+
+
