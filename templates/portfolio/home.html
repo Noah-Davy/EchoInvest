@@ -26,6 +26,9 @@
             <a href="{% url 'home' %}" class="navbar-brand">
                 <img src="{% static 'nav_logo 1.png' %}" alt="Echo Invest Logo">
             </a>
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                &#9776;
+            </button>
             <div class="navbar-nav">
                 <a href="{% url 'home' %}" class="nav-item">Home</a>
                 <a href="{% url 'home' %}" class="nav-item">How it works</a>
@@ -70,6 +73,31 @@
 
 
     </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const navItems = document.querySelector('.navbar-nav');
+
+    hamburger.addEventListener('click', function () {
+        // Toggle the 'active' class instead of changing the style directly
+        navItems.classList.toggle('active');
+    });
+
+    // Function to handle the resize event
+    function handleResize() {
+        // If the window width is more than 768px and navItems contains the 'active' class
+        if (window.innerWidth > 768 && navItems.classList.contains('active')) {
+            // Remove the 'active' class and the inline 'display' style
+            navItems.classList.remove('active');
+            navItems.style.display = '';
+        }
+    }
+
+    // Add event listener for the window resize event
+    window.addEventListener('resize', handleResize);
+    });
+
+  </script>
   </body>
 
 </html>

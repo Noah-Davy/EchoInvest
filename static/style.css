@@ -11,6 +11,15 @@ body, html {
 
 }
 
+.hamburger {
+    display: none; /* Hide by default */
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #1b1b1b;
+    cursor: pointer;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -236,6 +245,42 @@ header, .content, footer {
     }
   .btn-get-started {
         font-size: 15px; /* Slightly smaller font size */
+    }
+  .navbar {
+        flex-direction: column; /* Stack items vertically */
+        padding: 10px; /* Less padding on smaller screens */
+    }
+
+  .navbar-brand {
+        margin-bottom: 10px; /* Space between logo and nav items */
+    }
+
+  .hamburger {
+        display: block; /* Show hamburger */
+    }
+  .navbar-nav {
+        display: none; /* Hide navbar items */
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #ffffff;
+        position: absolute;
+        top: 100%; /* Position below the navbar */
+        left: 0;
+        width: 100%;
+        border-top: 1px solid #eaeaea;
+    }
+
+  .nav-item {
+        padding: 15px;
+        margin: 0;
+        text-align: left;
+    }
+
+  .nav-item-button {
+        width: 100%; /* Full width buttons */
+    }
+  .navbar-nav.active {
+        display: flex; /* Show navbar items when 'active' */
     }
 }
 
