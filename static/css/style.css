@@ -1,6 +1,6 @@
 body, html {
     text-align: center;
-    font-family: 'Poppins-Medium', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     margin: 5px 0 0;
     font-weight: 500;
@@ -8,9 +8,16 @@ body, html {
     -webkit-font-smoothing: antialiased; /* for Chrome and Safari */
     -moz-osx-font-smoothing: grayscale; /* for Firefox */
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
 
 }
-
+/*
+.wrapper{
+    margin-left:auto ;
+    margin-right: auto;
+    max-width: 1440px;
+}
+*/
 .hamburger {
     display: none; /* Hide by default */
     font-size: 24px;
@@ -135,6 +142,9 @@ header, .content, footer {
     font-size: 17px;
 }
 
+.btn-get-started:hover{
+    background-color: #0056b3;
+}
 /* Add media query for responsiveness if needed */
 @media (max-width: 768px) {
   .invest-intro h1 {
@@ -250,6 +260,25 @@ header, .content, footer {
 }
 
 @media (max-width: 768px) {
+.footer-container {
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+
+.social-icons {
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.footer-newsletter form {
+    flex-direction: column;
+}
+
+.footer-newsletter input[type="email"] {
+    margin: 0 0 0.5rem 0;
+}
+
   .how-it-works h2 {
     font-size: 24px; /* Smaller font size for the title on smaller screens */
   }
@@ -314,6 +343,7 @@ header, .content, footer {
         padding: 15px;
         margin: 0;
         text-align: left;
+        font-family: 'Poppins', sans-serif;
     }
 
   .nav-item-button {
@@ -329,6 +359,7 @@ header, .content, footer {
 .investing-bro-1,
 .investing-bro-1 * {
     box-sizing: border-box;
+
 }
 
 .investing-bro-1 {
@@ -373,7 +404,7 @@ header, .content, footer {
 
 .freepik-table-inject-31 {
     width: 85.6%;
-    height: 0%;
+    height: 0;
     position: absolute;
     right: 7.2%;
     left: 7.2%;
@@ -450,7 +481,7 @@ header, .content, footer {
 
 .freepik-floor-inject-2 {
     width: 86.2%;
-    height: 0%;
+    height: 0;
     position: absolute;
     right: 6.6%;
     left: 7.2%;
@@ -465,9 +496,10 @@ header, .content, footer {
 }
 
 .search-engines-bro-1 {
-    height: 500px;
+    height: 700px;
     position: relative;
     overflow: hidden;
+    padding-bottom: 0px;
 }
 
 .freepik-background-simple-inject-63 {
@@ -581,6 +613,7 @@ font-size: 32px;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
+    padding-bottom: 150px;
 }
 
 .rates-illustration-wrapper{
@@ -601,4 +634,289 @@ font-size: 32px;
     font-size: 19px;
     text-align: justify;
     max-width: 40rem;
+}
+
+
+.group-62,
+.group-62 * {
+    box-sizing: border-box;
+
+
+}
+
+.group-62 {
+    position: relative;
+
+}
+
+.group-59 {
+    width: 475.42px;
+    height: 306.56px;
+    position: static;
+}
+
+.ellipse-11 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 22.95px;
+    height: 22.95px;
+    position: absolute;
+    left: 54.1px;
+    top: 137.71px;
+}
+
+.ellipse-12 {
+    background: rgba(0, 60, 113, 0.70);
+    border-radius: 50%;
+    width: 22.95px;
+    height: 22.95px;
+    position: absolute;
+    left: 280.33px;
+    top: 209.84px;
+}
+
+.ellipse-14 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 13.12px;
+    height: 13.12px;
+    position: absolute;
+    left: 462.31px;
+    top: 286.89px;
+}
+
+.ellipse-15 {
+    background: #c3d1e2;
+    border-radius: 50%;
+    width: 13.12px;
+    height: 13.12px;
+    position: absolute;
+    left: 231.15px;
+    top: 42.62px;
+}
+
+.ellipse-16 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 13.12px;
+    height: 13.12px;
+    position: absolute;
+    left: 0;
+    top: 293.45px;
+}
+
+.ellipse-13 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 22.95px;
+    height: 22.95px;
+    position: absolute;
+    left: 419.68px;
+    top: 0;
+}
+
+.group-60 {
+    width: 475.42px;
+    height: 306.56px;
+    position: static;
+}
+
+.ellipse-112 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 22.95px;
+    height: 22.95px;
+    position: absolute;
+    left: 1372.05px;
+    top: 157.71px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(-1, 1);
+}
+
+.ellipse-122 {
+    background: rgba(0, 60, 113, 0.70);
+    border-radius: 50%;
+    width: 22.95px;
+    height: 22.95px;
+    position: absolute;
+    left: 1145.82px;
+    top: 229.84px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(-1, 1);
+}
+
+.ellipse-142 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 13.12px;
+    height: 13.12px;
+    position: absolute;
+    left: 963.85px;
+    top: 306.89px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(-1, 1);
+}
+
+.ellipse-152 {
+    background: #c3d1e2;
+    border-radius: 50%;
+    width: 13.12px;
+    height: 13.12px;
+    position: absolute;
+    left: 1195px;
+    top: 62.62px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(-1, 1);
+}
+
+.ellipse-162 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 13.12px;
+    height: 13.12px;
+    position: absolute;
+    left: 1426.15px;
+    top: 313.45px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(-1, 1);
+}
+
+.ellipse-132 {
+    background: #003c71;
+    border-radius: 50%;
+    width: 22.95px;
+    height: 22.95px;
+    position: absolute;
+    left: 1006.47px;
+    top: 20px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(-1, 1);
+}
+
+.group-61 {
+    width: 665px;
+    height: 238px;
+    position: static;
+}
+
+.group-1 {
+    width: 665px;
+    height: 132px;
+    position: static;
+}
+.power{
+    padding-top:200px;
+    padding-bottom: 0px;
+}
+
+.bringing-power-to-the-people {
+    color: #2c3030;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    line-height: 45px;
+    font-weight: 500;
+    position: absolute;
+    left: 495.61px;
+    top: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.investing-should-be-available-to-everyone-our-roboadvisor-s-mission-is-to-make-it-happen-regalesss-of-your-background-or-income-level {
+    color: #2c3030;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    position: absolute;
+    left: 386.61px;
+    top: 129px;
+    width: 665px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frame-19 {
+    background: #003c71;
+    border-radius: 15px;
+    padding: 8px 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 233px;
+    transform: translateX(-50%);
+    cursor: pointer; /* Indicates the element is clickable */
+    transition: background-color 0.3s;
+}
+
+.text1 {
+  display: inline-block;
+  background: #003c71;
+  color: #ffffff;
+  border-radius: 0.9375rem; /* 15px */
+  padding: 0.5rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem; /* 17px */
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame-19:hover {
+    background-color: #0056b3;
+}
+
+.site-footer {
+  background-color: #f8f9fa; /* Light grey background, you can adjust the color to fit your design */
+  padding: 10rem 0;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+
+
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  max-width: 150px; /* Adjust the size to match your design */
+  margin-bottom: 1rem;
+}
+
+/* Styles for the copyright text */
+.copy {
+  color: #6c757d; /* Muted text color */
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.contact-us-button {
+    background-color: transparent;
+    border: 2px solid #003c71; /* Echo Invest primary color for instance */
+    color: #003c71;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.contact-us-button:hover {
+    background-color: #003c71;
+    color: white;
 }
