@@ -5,21 +5,15 @@ body, html {
     margin: 5px 0 0;
     font-weight: 500;
     position: relative;
-    -webkit-font-smoothing: antialiased; /* for Chrome and Safari */
-    -moz-osx-font-smoothing: grayscale; /* for Firefox */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
 
 }
-/*
-.wrapper{
-    margin-left:auto ;
-    margin-right: auto;
-    max-width: 1440px;
-}
-*/
+
 .hamburger {
-    display: none; /* Hide by default */
+    display: none;
     font-size: 24px;
     background: none;
     border: none;
@@ -92,28 +86,28 @@ body, html {
 
 .illustration {
     height: auto;
-    position: absolute; /* Make sure it doesn't affect the flow of other elements */
-    top: 0; /* Align to the top of the container */
-    left: 0; /* Align to the left of the container */
-    z-index: -1; /* Ensure it stays behind other content */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
     overflow: visible;
 }
 
 header, .content, footer {
-    position: relative; /* Ensure these elements are positioned above the illustration */
+    position: relative;
     z-index: 2;
 }
 .invest-intro-container {
     display: flex;
-    justify-content: flex-start; /* Align to the left */
-    padding-left: 10%; /* Add some padding to the left */
-    background-color: transparent; /* Assuming a transparent background */
+    justify-content: flex-start;
+    padding-left: 10%;
+    background-color: transparent;
 }
 
 .invest-intro {
-    max-width: 600px; /* Control the width of the content */
-    text-align: left; /* Align text to the left */
-    padding: 100px 0; /* Add padding to the top and bottom */
+    max-width: 600px;
+    text-align: left;
+    padding: 100px 0;
 }
 
 
@@ -128,16 +122,16 @@ header, .content, footer {
     font-family: 'Poppins', sans-serif;
     font-size: 19px;
     color: #1b1b1b;
-    margin-bottom: 20px; /* Spacing between paragraph and button */
+    margin-bottom: 20px;
 }
 
 .btn-get-started {
-    background-color: #003c71; /* Button background color */
-    color: white; /* Button text color */
-    text-decoration: none; /* Remove underline from the link */
-    padding: 10px 20px; /* Button padding */
-    border-radius: 10px; /* Rounded corners for the button */
-    display: inline-block; /* Allows for padding and margin settings */
+    background-color: #003c71;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
     font-family: 'Poppins', sans-serif;
     font-size: 17px;
 }
@@ -145,7 +139,7 @@ header, .content, footer {
 .btn-get-started:hover{
     background-color: #0056b3;
 }
-/* Add media query for responsiveness if needed */
+
 @media (max-width: 768px) {
   .invest-intro h1 {
     font-size: 1.5em;
@@ -156,33 +150,33 @@ header, .content, footer {
 }
 
 .how-it-works {
-  background-color: transparent; /* Slightly off-white background similar to the screenshot */
-  padding: 50px 0; /* Spacing around the section */
+  background-color: transparent;
+  padding: 50px 0;
 }
 
 .how-it-works .container {
-    max-width: 1200px; /* Maximum width of the content */
-    margin: 0 auto; /* Center the container */
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center-align the content */
+    align-items: center;
 }
 
 .how-it-works h2 {
   font-family: 'Poppins', sans-serif;
-  color: #2c3030; /* Dark text color */
+  color: #2c3030;
   text-align: center;
   font-size: 32px;
-  margin-bottom: 40px; /* Spacing below the title */
+  margin-bottom: 40px;
 }
 
 .how-it-works-description {
     font-family: 'Poppins', sans-serif;
     font-size: 19px;
-    color: #6c757d; /* Adjust the color as per your design */
-    text-align: center; /* Center-align the text */
-    max-width: 800px; /* Adjust the width as necessary */
-    margin: 0 auto 30px; /* Center the paragraph and add space below it */
+    color: #6c757d;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px;
     line-height: 1.5;
 }
 
@@ -190,34 +184,34 @@ header, .content, footer {
 .steps {
     display: flex;
     justify-content: center;
-    gap: 50px; /* Space between each step */
-    flex-wrap: wrap; /* Wrap onto the next line for smaller screens */
-    margin-top: 30px; /* Spacing after the title */
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 .step {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Align text to the left */
-    max-width: 200px; /* Maximum width of each step */
-    background-color: #ffffff; /* Card background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Drop shadow for depth */
-    border-radius: 15px; /* Rounded corners for the card */
-    padding: 20px; /* Padding inside the card */
-    margin: 20px 0; /* Margin around the card */
+    align-items: center;
+    max-width: 200px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
 }
 
 .step-number {
-  font-size: 24px; /* Large font size for the step number */
-  color: #003c71; /* Color for the step number */
-  background-color: #ffffff; /* White background for the circle */
-  border-radius: 50%; /* Make it circular */
-  width: 40px; /* Width of the circle */
-  height: 40px; /* Height of the circle */
+  font-size: 24px;
+  color: #003c71;
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px; /* Center the circle and add spacing below */
+  margin: 0 auto 20px;
 }
 
 .step-title {
@@ -226,27 +220,27 @@ header, .content, footer {
   text-align: center;
   color: #2c3030;
   width: 100%;
-  margin-bottom: 0; /* Spacing between the title and the description */
+  margin-bottom: 0;
 }
 
 .step p {
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
-  color: #6c757d; /* Grey text color for the description */
+  color: #6c757d;
   line-height: 1.5;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 992px) {
   .steps .step {
-    flex-basis: 100%; /* Each step takes full width on smaller screens */
-    margin-bottom: 40px; /* Spacing between each step */
+    flex-basis: 100%;
+    margin-bottom: 40px;
   }
   .invest-intro-container {
-        padding-left: 5%; /* Less padding on smaller screens */
+        padding-left: 5%;
     }
  .how-it-works .container {
-    padding: 0 30px; / Add padding on smaller screens */
+    padding: 0 30px;
     }
  .steps {
     flex-direction: column;
@@ -254,8 +248,8 @@ header, .content, footer {
  }
 
  .step {
-    max-width: none; /* Allow the step to take the container's width */
-    align-items: center; /* Center-align items in a column layout */
+    max-width: none;
+    align-items: center;
     }
 }
 
@@ -280,60 +274,60 @@ text-align: center;
 }
 
   .how-it-works h2 {
-    font-size: 24px; /* Smaller font size for the title on smaller screens */
+    font-size: 24px;
   }
 
   .step-number {
-    width: 35px; /* Smaller circle for the step number */
-    height: 35px; /* Smaller circle for the step number */
-    font-size: 20px; /* Smaller font size for the number */
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
     margin-bottom: 10px;
   }
 
   .step-title {
-    font-size: 17px; /* Smaller font size for the title */
+    font-size: 17px;
     text-align: center;
   }
 
   .step p {
-    font-size: 14px; /* Smaller font size for the description */
+    font-size: 14px;
     text-align: center;
   }
   .invest-intro-container {
-        padding-left: 3%; /* Even less padding on very small screens */
-        padding-right: 3%; /* Add padding to the right as well */
+        padding-left: 3%;
+        padding-right: 3%;
     }
   .invest-intro {
-        padding: 50px 0; /* Less vertical padding on smaller screens */
+        padding: 50px 0;
     }
   .invest-intro h1 {
-        font-size: 28px; /* Slightly smaller font size */
+        font-size: 28px;
     }
   .invest-intro p {
-        font-size: 16px; /* Slightly smaller font size */
+        font-size: 16px;
     }
   .btn-get-started {
-        font-size: 15px; /* Slightly smaller font size */
+        font-size: 15px;
     }
   .navbar {
-        flex-direction: column; /* Stack items vertically */
-        padding: 10px; /* Less padding on smaller screens */
+        flex-direction: column;
+        padding: 10px;
     }
 
   .navbar-brand {
-        margin-bottom: 10px; /* Space between logo and nav items */
+        margin-bottom: 10px;
     }
 
   .hamburger {
-        display: block; /* Show hamburger */
+        display: block;
     }
   .navbar-nav {
-        display: none; /* Hide navbar items */
+        display: none;
         flex-direction: column;
         align-items: flex-start;
         background-color: #ffffff;
         position: absolute;
-        top: 100%; /* Position below the navbar */
+        top: 100%;
         left: 0;
         width: 100%;
         border-top: 1px solid #eaeaea;
@@ -347,10 +341,10 @@ text-align: center;
     }
 
   .nav-item-button {
-        width: 100%; /* Full width buttons */
+        width: 100%;
     }
   .navbar-nav.active {
-        display: flex; /* Show navbar items when 'active' */
+        display: flex;
     }
 }
 
@@ -499,7 +493,6 @@ text-align: center;
     height: 700px;
     position: relative;
     overflow: hidden;
-    padding-bottom: 0px;
 }
 
 .freepik-background-simple-inject-63 {
@@ -569,12 +562,12 @@ font-size: 32px;
 }
 
 .illustration-wrapper {
-    flex: 0 0 50%; /* Adjust the width as needed */
+    flex: 0 0 50%;
 }
 
 .text-content {
     flex: 1;
-    padding-left: 20px; /* Adjust the spacing as needed */
+    padding-left: 20px;
     max-width: 40rem;
 }
 
@@ -625,7 +618,7 @@ font-size: 32px;
 .rates-text-content{
     flex:1;
     justify-content: flex-start;
-    padding-left: 100px; /* Adjust the spacing as needed */
+    padding-left: 100px;
     padding-bottom: 100px;
 }
 
@@ -806,7 +799,6 @@ font-size: 32px;
 }
 .power{
     padding-top:200px;
-    padding-bottom: 0px;
 }
 
 .bringing-power-to-the-people {
@@ -852,7 +844,7 @@ font-size: 32px;
     left: 50%;
     top: 233px;
     transform: translateX(-50%);
-    cursor: pointer; /* Indicates the element is clickable */
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
@@ -860,10 +852,10 @@ font-size: 32px;
   display: inline-block;
   background: #003c71;
   color: #ffffff;
-  border-radius: 0.9375rem; /* 15px */
+  border-radius: 0.9375rem;
   padding: 0.5rem 1rem;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem; /* 17px */
+  font-size: 1.2rem;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -877,7 +869,7 @@ font-size: 32px;
 }
 
 .site-footer {
-  background-color: #f8f9fa; /* Light grey background, you can adjust the color to fit your design */
+  background-color: #f8f9fa;
   padding: 10rem 0;
   text-align: center;
   font-family: 'Poppins', sans-serif;
@@ -895,20 +887,20 @@ font-size: 32px;
 }
 
 .footer-logo {
-  max-width: 150px; /* Adjust the size to match your design */
+  max-width: 150px;
   margin-bottom: 1rem;
 }
 
-/* Styles for the copyright text */
+
 .copy {
-  color: #6c757d; /* Muted text color */
+  color: #6c757d;
   font-size: 1rem;
   margin-top: 1rem;
 }
 
 .contact-us-button {
     background-color: transparent;
-    border: 2px solid #003c71; /* Echo Invest primary color for instance */
+    border: 2px solid #003c71;
     color: #003c71;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -920,3 +912,8 @@ font-size: 32px;
     background-color: #003c71;
     color: white;
 }
+
+/*Home.html styles complete*/
+/*How it works styles*/
+
+
