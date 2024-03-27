@@ -916,4 +916,90 @@ font-size: 32px;
 /*Home.html styles complete*/
 /*How it works styles*/
 
+.section-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  background-color: white;
+}
+
+.content-container {
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 40%;
+}
+.text-container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 28%;
+  padding-left:15rem;
+}
+
+.step-indicator {
+  margin-bottom: 10px;
+}
+
+.ellipse-17 {
+  background: rgba(0, 60, 113, 0.10);
+  border-radius: 50%;
+  width: 51px;
+  height: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+  float: left;
+}
+.ellipse-171 {
+  background: rgba(0, 60, 113, 0.10);
+  border-radius: 50%;
+  width: 51px;
+  height: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+  float: left;
+}
+
+.step-number1 {
+  position: absolute;
+  font-weight: bold;
+  color: #003C71;
+}
+
+h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+p {
+  font-size: 16px;
+  color: #666;
+    text-align: justify;
+}
+
+.svg-container {
+
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10rem;
+}
+
 
