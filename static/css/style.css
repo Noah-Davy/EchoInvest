@@ -141,6 +141,100 @@ header, .content, footer {
 }
 
 @media (max-width: 768px) {
+ .footer-container {
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+
+.social-icons {
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.footer-newsletter form {
+    flex-direction: column;
+}
+
+.footer-newsletter input[type="email"] {
+    margin: 0 0 0.5rem 0;
+}
+
+  .how-it-works h2 {
+    font-size: 24px;
+  }
+
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-size: 17px;
+    text-align: center;
+  }
+
+  .step p {
+    font-size: 14px;
+    text-align: center;
+  }
+  .invest-intro-container {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+  .invest-intro {
+        padding: 50px 0;
+    }
+  .invest-intro h1 {
+        font-size: 28px;
+    }
+  .invest-intro p {
+        font-size: 16px;
+    }
+  .btn-get-started {
+        font-size: 15px;
+    }
+  .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+  .navbar-brand {
+        margin-bottom: 10px;
+    }
+
+  .hamburger {
+        display: block;
+    }
+  .navbar-nav {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #ffffff;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid #eaeaea;
+    }
+
+  .nav-item {
+        padding: 15px;
+        margin: 0;
+        text-align: left;
+        font-family: 'Poppins', sans-serif;
+    }
+
+  .nav-item-button {
+        width: 100%;
+    }
+  .navbar-nav.active {
+        display: flex;
+    }
+
+
   .invest-intro h1 {
     font-size: 1.5em;
   }
@@ -252,102 +346,6 @@ header, .content, footer {
     align-items: center;
     }
 }
-
-@media (max-width: 768px) {
-.footer-container {
-flex-direction: column;
-align-items: center;
-text-align: center;
-}
-
-.social-icons {
-    justify-content: center;
-    margin: 1rem 0;
-}
-
-.footer-newsletter form {
-    flex-direction: column;
-}
-
-.footer-newsletter input[type="email"] {
-    margin: 0 0 0.5rem 0;
-}
-
-  .how-it-works h2 {
-    font-size: 24px;
-  }
-
-  .step-number {
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-
-  .step-title {
-    font-size: 17px;
-    text-align: center;
-  }
-
-  .step p {
-    font-size: 14px;
-    text-align: center;
-  }
-  .invest-intro-container {
-        padding-left: 3%;
-        padding-right: 3%;
-    }
-  .invest-intro {
-        padding: 50px 0;
-    }
-  .invest-intro h1 {
-        font-size: 28px;
-    }
-  .invest-intro p {
-        font-size: 16px;
-    }
-  .btn-get-started {
-        font-size: 15px;
-    }
-  .navbar {
-        flex-direction: column;
-        padding: 10px;
-    }
-
-  .navbar-brand {
-        margin-bottom: 10px;
-    }
-
-  .hamburger {
-        display: block;
-    }
-  .navbar-nav {
-        display: none;
-        flex-direction: column;
-        align-items: flex-start;
-        background-color: #ffffff;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        border-top: 1px solid #eaeaea;
-    }
-
-  .nav-item {
-        padding: 15px;
-        margin: 0;
-        text-align: left;
-        font-family: 'Poppins', sans-serif;
-    }
-
-  .nav-item-button {
-        width: 100%;
-    }
-  .navbar-nav.active {
-        display: flex;
-    }
-}
-
 
 
 .investing-bro-1,
@@ -1004,7 +1002,7 @@ p {
 
 .faq-section {
   font-family: 'Poppins', sans-serif;
-  background-color: white; /* Or any color you prefer */
+  background-color: white;
   padding: 50px 0;
 }
 
@@ -1024,21 +1022,21 @@ p {
 .faq-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px; /* Adjust the space between grid items */
+  gap: 20px;
   margin-bottom: 30px;
 }
 
 .faq-block {
-  background: #ffffff; /* FAQ block background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Simple shadow for depth */
-  border-radius: 8px; /* Optional: for rounded corners */
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   padding: 20px;
   text-align: left;
 }
 
 .faq-block h3 {
   font-size: 1.5rem;
-  color: #003C71; /* Adjust to match your theme */
+  color: black;
   margin-bottom: 10px;
 }
 
@@ -1049,21 +1047,19 @@ p {
 }
 
 .faq-button {
-  background-color: #003C71; /* Button color */
-  color: #ffffff; /* Text color */
+  background-color: #003C71;
+  color: #ffffff;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px; /* Rounded button edges */
+  border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   font-family: inherit;
 }
 
 .faq-button:hover {
-  background-color: #002a53; /* Darken button on hover */
+  background-color: #002a53;
 }
 
-/* Responsive adjustments */
-@media
 
 
