@@ -1002,4 +1002,68 @@ p {
   padding-left: 10rem;
 }
 
+.faq-section {
+  font-family: 'Poppins', sans-serif;
+  background-color: white; /* Or any color you prefer */
+  padding: 50px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  text-align: center;
+}
+
+.faq-section h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 100px;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px; /* Adjust the space between grid items */
+  margin-bottom: 30px;
+}
+
+.faq-block {
+  background: #ffffff; /* FAQ block background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Simple shadow for depth */
+  border-radius: 8px; /* Optional: for rounded corners */
+  padding: 20px;
+  text-align: left;
+}
+
+.faq-block h3 {
+  font-size: 1.5rem;
+  color: #003C71; /* Adjust to match your theme */
+  margin-bottom: 10px;
+}
+
+.faq-block p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.faq-button {
+  background-color: #003C71; /* Button color */
+  color: #ffffff; /* Text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* Rounded button edges */
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.faq-button:hover {
+  background-color: #002a53; /* Darken button on hover */
+}
+
+/* Responsive adjustments */
+@media
+
 
