@@ -25,10 +25,18 @@ SECRET_KEY = 'django-insecure-yc(2&scq6k=f7i=fu$p!=qpr76igmkg%x*jyg%t4o)!+)+hp8d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.echoinvest.co.uk', 'echoinvest.co.uk','https://www.echoinvest.co.uk']
 
+CSRF_TRUSTED_ORIGINS = ['https://www.echoinvest.co.uk']
 
-# Application definition
+# Use a secure cookie for the session cookie.
+SESSION_COOKIE_SECURE = True
+
+# Use a secure cookie for the CSRF cookie.
+CSRF_COOKIE_SECURE = True
+
+# Force HTTPS redirect
+SECURE_SSL_REDIRECT = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
