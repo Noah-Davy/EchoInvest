@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     'app_user',
     'app_portfolio',
     'axes',
+    'crispy_forms',
+    'crispy_bootstrap5',
+
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap5'  # Or 'bootstrap3' if you are using Bootstrap 3
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
