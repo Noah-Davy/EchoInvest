@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'app_advisor',
     'app_user',
     'app_portfolio',
-    'crispy_forms',
-    'crispy_bootstrap5',
     'axes',
 ]
 
@@ -56,7 +54,6 @@ MIDDLEWARE = [
     'axes.middleware.AxesMiddleware'
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',
