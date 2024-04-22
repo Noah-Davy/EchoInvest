@@ -98,6 +98,8 @@ DATABASES = {
 }
 
 
+DATABASE_URL = 'postgres://u1jk9dbrmm90b3:pe322e8fb46b2177a532813463c729e76499f9a5b692a0c5a98301d58b1c4eb2d@cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/df9gjs7am9tetd'
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -153,3 +155,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
