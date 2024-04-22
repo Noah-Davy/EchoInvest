@@ -1,0 +1,23 @@
+{% extends "portfolio/base.html" %}
+
+{% load static %}
+
+{% block title %}Login - EchoInvest{% endblock title %}
+
+{% block content %}
+<div class="login-page-container">
+    <div class="login-page">
+        <div class="form">
+            <!-- Add your form action and method here -->
+            <form class="login-form" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="Username" name="username"/>
+                <input type="password" placeholder="Password" name="password"/>
+                <button type="submit">login</button>
+                <p class="message">Not registered? <a href="{% url 'register' %}">Create an account</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

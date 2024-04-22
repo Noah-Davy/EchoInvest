@@ -1,0 +1,21 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block title %}Register - EchoInvest{% endblock title %}
+
+{% block content %}
+<div class="login-page">
+    <div class="form">
+        <form class="register-form" action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Username" name="username" required />
+            <input type="text" placeholder="First name" name="first_name" required />
+            <input type="text" placeholder="Last name" name="last_name" required />
+            <input type="email" placeholder="Email" name="email" required />
+            <input type="password" placeholder="Password" name="password1" required />
+            <input type="password" placeholder="Confirm password" name="password2" required />
+            <button type="submit">Register</button>
+            <p class="message">Already registered? <a href="{% url 'login' %}">Sign In</a></p>
+        </form>
+    </div>
+</div>
+{% endblock content %}

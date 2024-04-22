@@ -20,12 +20,22 @@
                     &#9776;
                 </button>
                 <div class="navbar-nav">
-                    <a href="{% url 'home' %}" class="nav-item">Home</a>
-                    <a href="{% url 'how_it_works' %}" class="nav-item">How it works</a>
-                    <a href="{% url 'blog' %}" class="nav-item">Blog</a>
-                    <a href="{% url 'how_it_works' %}#faq" class="nav-item">FAQ</a>
-                    <a href="{% url 'home' %}" class="nav-item">Log in</a>
-                    <a href="{% url 'home' %}" class="nav-item nav-item-button">Get started</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'home_main' %}" class="nav-item">Home</a>
+                        <a href="{% url 'how_it_works' %}" class="nav-item">How it works</a>
+                        <a href="{% url 'blog' %}" class="nav-item">Blog</a>
+                        <a href="{% url 'how_it_works' %}#faq" class="nav-item">FAQ</a>
+                        <a href="{% url 'home_main' %}" class="nav-item">Settings</a>
+                        <a href="{% url 'logout' %}" class="nav-item">Logout</a>
+                    {% else %}
+                        <a href="{% url 'home' %}" class="nav-item">Home</a>
+                        <a href="{% url 'how_it_works' %}" class="nav-item">How it works</a>
+                        <a href="{% url 'blog' %}" class="nav-item">Blog</a>
+                        <a href="{% url 'how_it_works' %}#faq" class="nav-item">FAQ</a>
+                        <a href="{% url 'login' %}" class="nav-item">Log in</a>
+                        <a href="{% url 'register' %}" class="nav-item nav-item-button">Get started</a>
+                    {% endif %}
+
                 </div>
             </nav>
         </header>
