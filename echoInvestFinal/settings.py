@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-yc(2&scq6k=f7i=fu$p!=qpr76igmkg%x*jyg%t4o)!+)+hp8d
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://www.echoinvest.co.uk']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
