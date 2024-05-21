@@ -19,10 +19,9 @@ from django.http import JsonResponse
 import json
 
 
-
-
 def home_view(request):
     return render(request, 'portfolio/home.html')
+
 
 @login_required
 def main_home_view(request):
@@ -108,8 +107,6 @@ class QuestionnaireView(View):
                     return await response.json()
                 else:
                     return None
-
-
 
 
 class ResultsView(View):
