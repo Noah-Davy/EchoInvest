@@ -188,7 +188,7 @@ def fetch_company_overview(symbol):
     return data
 
 
-# Function to get the latest price with caching
+# Asynchronous function to fetch price
 async def fetch_price(session, symbol, api_key):
     url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api_key}"
     async with session.get(url) as response:
@@ -201,6 +201,7 @@ async def fetch_price(session, symbol, api_key):
             return symbol, None
 
 
+# Asynchronous function to fetch all prices
 async def fetch_all_prices(symbols, api_key):
     async with aiohttp.ClientSession() as session:
         tasks = [fetch_price(session, symbol, api_key) for symbol in symbols]
@@ -209,8 +210,10 @@ async def fetch_all_prices(symbols, api_key):
 
 
 def get_latest_prices(symbols):
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     prices = loop.run_until_complete(fetch_all_prices(symbols, api_key))
+    loop.close()
     return prices
 
 
@@ -239,8 +242,6 @@ def get_historical_prices(symbol, start_date, end_date):
     return prices
 
 
-# Function to allocate the portfolio based on the recommended portfolio and initial investment
-# Function to allocate the portfolio based on the recommended portfolio and initial investment
 def allocate_portfolio(portfolio_allocation, initial_investment):
     allocated_portfolio = {
         "total_investment": initial_investment,
@@ -249,10 +250,8 @@ def allocate_portfolio(portfolio_allocation, initial_investment):
         "sector_allocation": {}
     }
 
-    # Prepare the list of symbols to fetch prices for
     symbols = [stock["symbol"] for asset_class in portfolio_allocation.keys() for stock in stocks[asset_class]]
 
-    # Get latest prices for all symbols
     latest_prices = get_latest_prices(symbols)
 
     for asset_class, percentage in portfolio_allocation.items():
@@ -275,7 +274,6 @@ def allocate_portfolio(portfolio_allocation, initial_investment):
             print(f"Stock Shares: {stock_shares}")
             print("---")
 
-            # Get the company overview data for sector and country allocation
             company_data = fetch_company_overview(stock["symbol"])
 
             if "Sector" in company_data:
@@ -311,30 +309,24 @@ def allocate_portfolio(portfolio_allocation, initial_investment):
             "stocks": stock_allocations
         })
 
-    # Calculate the total allocation for each region and sector
     total_region_allocation = sum(allocated_portfolio["region_allocation"].values())
     total_sector_allocation = sum(allocated_portfolio["sector_allocation"].values())
 
-    # Convert the region and sector allocations to percentages
     for region in allocated_portfolio["region_allocation"]:
-        allocated_portfolio["region_allocation"][region] = allocated_portfolio["region_allocation"][
-                                                               region] / total_region_allocation * 100
+        allocated_portfolio["region_allocation"][region] = allocated_portfolio["region_allocation"][region] / total_region_allocation * 100
 
     for sector in allocated_portfolio["sector_allocation"]:
-        allocated_portfolio["sector_allocation"][sector] = allocated_portfolio["sector_allocation"][
-                                                               sector] / total_sector_allocation * 100
+        allocated_portfolio["sector_allocation"][sector] = allocated_portfolio["sector_allocation"][sector] / total_sector_allocation * 100
 
     return allocated_portfolio
 
-
 def calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date):
     portfolio_prices = {}
-    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365 * 4)).strftime(
-        "%Y-%m-%d")  ####CHANGE YEAR HERE
+    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365 * 4)).strftime("%Y-%m-%d")
 
     print(f"Initial Investment: {initial_investment}")
 
-    spy_prices = get_historical_prices("SPY", start_date, end_date)  ####CHANGE COMPARISON HERE
+    spy_prices = get_historical_prices("SPY", start_date, end_date)
 
     if spy_prices:
         spy_dates = sorted(spy_prices.keys())
@@ -356,19 +348,16 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
                 stock_dates = sorted(stock_prices.keys())
                 if stock_dates:
                     stock_shares = stock["allocation"] / stock_prices[stock_dates[0]]
-                    print(
-                        f"Stock: {stock['symbol']}, Allocation: {stock['allocation']}, Initial Price: {stock_prices[stock_dates[0]]}, Shares: {stock_shares}")
+                    print(f"Stock: {stock['symbol']}, Allocation: {stock['allocation']}, Initial Price: {stock_prices[stock_dates[0]]}, Shares: {stock_shares}")
 
                     for date in stock_prices:
                         if date not in portfolio_prices:
                             portfolio_prices[date] = 0
                         portfolio_prices[date] += stock_prices[date] * stock_shares
                 else:
-                    print(
-                        f"No historical prices available for {stock['symbol']} for the given date range. Skipping performance calculation for this stock.")
+                    print(f"No historical prices available for {stock['symbol']} for the given date range. Skipping performance calculation for this stock.")
             else:
-                print(
-                    f"Historical prices not available for {stock['symbol']}. Skipping performance calculation for this stock.")
+                print(f"Historical prices not available for {stock['symbol']}. Skipping performance calculation for this stock.")
 
     print(f"Portfolio Prices: {portfolio_prices}")
 
@@ -396,34 +385,23 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
         "spy_performance": spy_performance
     }
 
-
 def get_previous_trading_day():
-    # Load the trading calendar for NYSE
     nyse = mcal.get_calendar('NYSE')
-
-    # Get today's date in the correct format
     today = datetime.now().strftime('%Y-%m-%d')
-
-    # Find the last valid trading day
-    # This method ensures you get the last trading session up to 'today'
     valid_days = nyse.valid_days(start_date='2010-01-01', end_date=today)
 
-    # Look for the previous trading day
     if len(valid_days) > 1:
-        previous_trading_day = valid_days[-2]  # Gets the second to last valid day (yesterday or the last trading day)
+        previous_trading_day = valid_days[-2]
     else:
-        # This case handles if it's the first trading day of the year
         previous_trading_day = valid_days[-1]
 
     return previous_trading_day.strftime('%Y-%m-%d')
 
-
-# Function to plot pie chart
 def plot_pie_chart(data, title):
     labels = list(data.keys())
     sizes = list(data.values())
     fig1, ax1 = plt.subplots()
     ax1.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax1.axis('equal')
     plt.title(title)
     plt.show()

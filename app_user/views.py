@@ -1,3 +1,6 @@
+import asyncio
+
+import aiohttp
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, LoginForm
@@ -74,37 +77,36 @@ class QuestionnaireView(View):
             user_responses = form.cleaned_data
             initial_investment = request.POST.get('initial_investment')
 
-            # Prepare data for the API request
-            data = {
-                'user_responses': user_responses,
-                'initial_investment': initial_investment
-            }
+            # Asynchronous API call
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            response_data = loop.run_until_complete(self.make_api_call(user_responses, initial_investment))
 
-            try:
-                # Make a POST request to AllocatePortfolioView API endpoint
-                response = requests.post(
-                    request.build_absolute_uri('/advisor/allocate-portfolio/'),
-                    headers={'Content-Type': 'application/json'},
-                    data=json.dumps(data)
-                )
-                response.raise_for_status()  # Raise an error for bad status codes
-                data = response.json()
-
-                # Log the received data for debugging
-                print("API Response:", data)
-
-                request.session['risk_score'] = data['risk_score']
-                request.session['risk_tolerance'] = data['risk_tolerance']
-                request.session['recommended_portfolio'] = data['recommended_portfolio']
-                request.session['allocated_portfolio'] = data['allocated_portfolio']
-                request.session['portfolio_performance'] = data['portfolio_performance']
-
-                return redirect('results')  # Redirect to the results page
-            except requests.exceptions.RequestException as e:
-                print(f"Request failed: {e}")
+            if response_data:
+                context = {
+                    'risk_score': response_data['risk_score'],
+                    'risk_tolerance': response_data['risk_tolerance'],
+                    'recommended_portfolio': response_data['recommended_portfolio'],
+                    'allocated_portfolio': response_data['allocated_portfolio'],
+                    'portfolio_performance': response_data['portfolio_performance']
+                }
+                return render(request, 'portfolio/results.html', context)
+            else:
                 form.add_error(None, 'Error processing your request. Please try again later.')
 
         return render(request, 'portfolio/questionnaire.html', {'form': form})
+
+    async def make_api_call(self, user_responses, initial_investment):
+        url = self.request.build_absolute_uri('/advisor/allocate-portfolio/')
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json={
+                'user_responses': user_responses,
+                'initial_investment': initial_investment
+            }) as response:
+                if response.status == 200:
+                    return await response.json()
+                else:
+                    return None
 
 
 
