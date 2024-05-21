@@ -83,14 +83,15 @@ class QuestionnaireView(View):
             response_data = loop.run_until_complete(self.make_api_call(user_responses, initial_investment))
 
             if response_data:
-                context = {
-                    'risk_score': response_data['risk_score'],
-                    'risk_tolerance': response_data['risk_tolerance'],
-                    'recommended_portfolio': response_data['recommended_portfolio'],
-                    'allocated_portfolio': response_data['allocated_portfolio'],
-                    'portfolio_performance': response_data['portfolio_performance']
-                }
-                return render(request, 'portfolio/results.html', context)
+                # Save data to session
+                request.session['risk_score'] = response_data['risk_score']
+                request.session['risk_tolerance'] = response_data['risk_tolerance']
+                request.session['recommended_portfolio'] = response_data['recommended_portfolio']
+                request.session['allocated_portfolio'] = response_data['allocated_portfolio']
+                request.session['portfolio_performance'] = response_data['portfolio_performance']
+
+                # Redirect to ResultsView
+                return redirect('results')
             else:
                 form.add_error(None, 'Error processing your request. Please try again later.')
 
@@ -107,6 +108,7 @@ class QuestionnaireView(View):
                     return await response.json()
                 else:
                     return None
+
 
 
 
