@@ -1,0 +1,16 @@
+{% extends "portfolio/base.html" %}
+
+{% block title %}Questionnaire{% endblock %}
+
+{% block content %}
+<h2>Investment Questionnaire</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+        <label for="initial_investment">Initial Investment (USD):</label>
+        <input type="number" id="initial_investment" name="initial_investment" required>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'axes',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework',
+    'requests',
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap5'  # Or 'bootstrap3' if you are using Bootstrap 3

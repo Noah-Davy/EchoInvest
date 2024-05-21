@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
     path('how-it-works/', how_it_works, name='how_it_works'),
-    path('blog/',blog,name='blog'),
-    path('',include('app_user.urls')),
+    path('blog/', blog, name='blog'),
+    path('', include('app_user.urls')),
+    path('advisor/', include('app_advisor.urls')),
 ]

@@ -1,0 +1,51 @@
+{% extends "portfolio/base.html" %}
+
+{% block title %}Results{% endblock %}
+
+{% block content %}
+<h2>Investment Results</h2>
+<p>Risk Score: {{ risk_score }}</p>
+<p>Risk Tolerance: {{ risk_tolerance }}</p>
+
+<h3>Recommended Portfolio</h3>
+<ul>
+    {% for asset_class, percentage in recommended_portfolio.items %}
+    <li>{{ asset_class|capfirst }}: {{ percentage }}%</li>
+    {% endfor %}
+</ul>
+
+<h3>Allocated Portfolio</h3>
+<p>Total Investment: ${{ allocated_portfolio.total_investment }}</p>
+{% for asset_class in allocated_portfolio.asset_classes %}
+    <h4>{{ asset_class.name|capfirst }}</h4>
+    <p>Allocation: ${{ asset_class.allocation }}</p>
+    <p>Percentage: {{ asset_class.percentage }}%</p>
+    <ul>
+        {% for stock in asset_class.stocks %}
+        <li>{{ stock.name }} ({{ stock.symbol }}): ${{ stock.allocation }} ({{ stock.shares }} shares at ${{ stock.price }})</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+<h3>Region Allocation</h3>
+<ul>
+    {% for region, percentage in allocated_portfolio.region_allocation.items %}
+    <li>{{ region }}: {{ percentage }}%</li>
+    {% endfor %}
+</ul>
+
+<h3>Sector Allocation</h3>
+<ul>
+    {% for sector, percentage in allocated_portfolio.sector_allocation.items %}
+    <li>{{ sector }}: {{ percentage }}%</li>
+    {% endfor %}
+</ul>
+
+<h3>Portfolio Performance (Last 10 Years)</h3>
+<p>Date | Portfolio Value | SPY Value</p>
+<ul>
+    {% for date, portfolio_value, spy_value in portfolio_performance %}
+    <li>{{ date }}: ${{ portfolio_value }} | ${{ spy_value }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
