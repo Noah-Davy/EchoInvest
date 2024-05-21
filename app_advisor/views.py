@@ -10,8 +10,14 @@ from .utils import (
     calculate_portfolio_performance
 )
 
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 class AllocatePortfolioView(APIView):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
     def post(self, request):
         try:
             user_responses = request.data.get('user_responses')

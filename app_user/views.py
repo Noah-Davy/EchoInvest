@@ -17,6 +17,9 @@ from django.views import View
 import requests
 from django.http import JsonResponse
 import json
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 
 
 def home_view(request):
@@ -66,6 +69,10 @@ class CustomLogoutView(LogoutView):
 
 
 class QuestionnaireView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
     def get(self, request):
         form = QuestionnaireForm()
         return render(request, 'portfolio/questionnaire.html', {'form': form})
@@ -76,12 +83,16 @@ class QuestionnaireView(View):
             user_responses = form.cleaned_data
             initial_investment = request.POST.get('initial_investment')
 
-            # Asynchronous API call
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            response_data = loop.run_until_complete(self.make_api_call(user_responses, initial_investment))
+            # Synchronous API call
+            url = request.build_absolute_uri('/advisor/allocate-portfolio/')
+            response = requests.post(url, json={
+                'user_responses': user_responses,
+                'initial_investment': initial_investment
+            })
 
-            if response_data:
+            if response.status_code == 200:
+                response_data = response.json()
+
                 # Save data to session
                 request.session['risk_score'] = response_data['risk_score']
                 request.session['risk_tolerance'] = response_data['risk_tolerance']
@@ -95,18 +106,6 @@ class QuestionnaireView(View):
                 form.add_error(None, 'Error processing your request. Please try again later.')
 
         return render(request, 'portfolio/questionnaire.html', {'form': form})
-
-    async def make_api_call(self, user_responses, initial_investment):
-        url = self.request.build_absolute_uri('/advisor/allocate-portfolio/')
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json={
-                'user_responses': user_responses,
-                'initial_investment': initial_investment
-            }) as response:
-                if response.status == 200:
-                    return await response.json()
-                else:
-                    return None
 
 
 class ResultsView(View):
