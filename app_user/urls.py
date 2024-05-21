@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register, home_view, CustomLogoutView, CustomLoginView, main_home_view
+from .views import register, home_view, CustomLogoutView, CustomLoginView, main_home_view, ResultsView
 from .views import QuestionnaireView
 
 urlpatterns = [
