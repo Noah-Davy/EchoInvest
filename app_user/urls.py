@@ -9,5 +9,7 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('home_main/', main_home_view, name='home_main'),
     path('questionnaire/', QuestionnaireView.as_view(), name='questionnaire'),
+    path('results/', ResultsView.as_view(), name='results'),  # Add this line
+
 ]
 

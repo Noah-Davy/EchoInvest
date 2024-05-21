@@ -12,6 +12,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.views import View
 import requests
+from django.http import JsonResponse
+import json
 
 
 
@@ -72,27 +74,43 @@ class QuestionnaireView(View):
             user_responses = form.cleaned_data
             initial_investment = request.POST.get('initial_investment')
 
+            # Prepare data for the API request
+            data = {
+                'user_responses': user_responses,
+                'initial_investment': initial_investment
+            }
+
             # Make a POST request to AllocatePortfolioView API endpoint
             response = requests.post(
                 request.build_absolute_uri('/advisor/allocate-portfolio/'),
-                json={
-                    'user_responses': user_responses,
-                    'initial_investment': initial_investment
-                }
+                headers={'Content-Type': 'application/json'},
+                data=json.dumps(data)
             )
 
             if response.status_code == 200:
                 data = response.json()
-                context = {
-                    'risk_score': data['risk_score'],
-                    'risk_tolerance': data['risk_tolerance'],
-                    'recommended_portfolio': data['recommended_portfolio'],
-                    'allocated_portfolio': data['allocated_portfolio'],
-                    'portfolio_performance': data['portfolio_performance']
-                }
-                return render(request, 'portfolio/results.html', context)
+                request.session['risk_score'] = data['risk_score']
+                request.session['risk_tolerance'] = data['risk_tolerance']
+                request.session['recommended_portfolio'] = data['recommended_portfolio']
+                request.session['allocated_portfolio'] = data['allocated_portfolio']
+                request.session['portfolio_performance'] = data['portfolio_performance']
+                return redirect('results')  # Redirect to the results page
             else:
                 # Handle API error
                 form.add_error(None, 'Error processing your request. Please try again later.')
 
         return render(request, 'portfolio/questionnaire.html', {'form': form})
+
+
+
+class ResultsView(View):
+    def get(self, request):
+        # This data should be passed from the QuestionnaireView after processing
+        context = {
+            'risk_score': request.session.get('risk_score'),
+            'risk_tolerance': request.session.get('risk_tolerance'),
+            'recommended_portfolio': request.session.get('recommended_portfolio'),
+            'allocated_portfolio': request.session.get('allocated_portfolio'),
+            'portfolio_performance': request.session.get('portfolio_performance')
+        }
+        return render(request, 'portfolio/results.html', context)

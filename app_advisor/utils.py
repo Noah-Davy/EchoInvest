@@ -7,6 +7,8 @@ import json
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import time
+import aiohttp
+import asyncio
 
 # Alpha Vantage API key
 api_key = 'V235L3PAVTJ14VXC'
@@ -150,12 +152,14 @@ country_mapping = {
     "UNH": "USA"
 }
 
+
 # Function to calculate the risk score based on user responses
 def calculate_risk_score(responses):
     total_score = 0
     for question, response in responses.items():
         total_score += risk_scores[question][response]
     return total_score
+
 
 # Function to determine the risk tolerance level based on the risk score
 def determine_risk_tolerance(score):
@@ -170,9 +174,11 @@ def determine_risk_tolerance(score):
     else:
         return "Low tolerance for risk"
 
+
 # Function to recommend a portfolio based on the risk tolerance level
 def recommend_portfolio(risk_tolerance):
     return portfolios[risk_tolerance]
+
 
 # Function to fetch company overview data
 def fetch_company_overview(symbol):
@@ -181,38 +187,32 @@ def fetch_company_overview(symbol):
     data = response.json()
     return data
 
+
 # Function to get the latest price with caching
-def get_latest_price(symbol, cache_expiry=3600):
-    cache_file = f"{symbol}_cache.json"
-
-    try:
-        with open(cache_file, "r") as file:
-            cache_data = json.load(file)
-            if "timestamp" in cache_data and "price" in cache_data:
-                cache_timestamp = datetime.fromisoformat(cache_data["timestamp"])
-                if datetime.now() - cache_timestamp < timedelta(seconds=cache_expiry):
-                    print(f"Using cached price for {symbol}: {cache_data['price']}")
-                    return cache_data["price"]
-    except FileNotFoundError:
-        pass
-
+async def fetch_price(session, symbol, api_key):
     url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api_key}"
-    response = requests.get(url)
-    data = response.json()
+    async with session.get(url) as response:
+        data = await response.json()
+        if "Global Quote" in data and "05. price" in data["Global Quote"]:
+            price = float(data["Global Quote"]["05. price"])
+            return symbol, price
+        else:
+            print(f"Error retrieving price for {symbol}: {data}")
+            return symbol, None
 
-    if "Global Quote" in data and "05. price" in data["Global Quote"]:
-        price = float(data["Global Quote"]["05. price"])
-        cache_data = {
-            "timestamp": datetime.now().isoformat(),
-            "price": price
-        }
-        with open(cache_file, "w") as file:
-            json.dump(cache_data, file)
-        print(f"Retrieved latest price for {symbol}: {price}")
-        return price
-    else:
-        print(f"Error retrieving price for {symbol}: {data}")
-        return None
+
+async def fetch_all_prices(symbols, api_key):
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch_price(session, symbol, api_key) for symbol in symbols]
+        results = await asyncio.gather(*tasks)
+        return dict(results)
+
+
+def get_latest_prices(symbols):
+    loop = asyncio.get_event_loop()
+    prices = loop.run_until_complete(fetch_all_prices(symbols, api_key))
+    return prices
+
 
 def get_historical_prices(symbol, start_date, end_date):
     url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&outputsize=full&apikey={api_key}"
@@ -238,6 +238,8 @@ def get_historical_prices(symbol, start_date, end_date):
 
     return prices
 
+
+# Function to allocate the portfolio based on the recommended portfolio and initial investment
 # Function to allocate the portfolio based on the recommended portfolio and initial investment
 def allocate_portfolio(portfolio_allocation, initial_investment):
     allocated_portfolio = {
@@ -247,12 +249,18 @@ def allocate_portfolio(portfolio_allocation, initial_investment):
         "sector_allocation": {}
     }
 
+    # Prepare the list of symbols to fetch prices for
+    symbols = [stock["symbol"] for asset_class in portfolio_allocation.keys() for stock in stocks[asset_class]]
+
+    # Get latest prices for all symbols
+    latest_prices = get_latest_prices(symbols)
+
     for asset_class, percentage in portfolio_allocation.items():
         asset_allocation = initial_investment * (percentage / 100)
         num_stocks = len(stocks[asset_class])
         stock_allocations = []
         for stock in stocks[asset_class]:
-            stock_price = get_latest_price(stock["symbol"])
+            stock_price = latest_prices.get(stock["symbol"])
 
             if stock_price is None or stock_price == 0:
                 print(f"Invalid stock price for {stock['symbol']}. Skipping allocation.")
@@ -309,16 +317,20 @@ def allocate_portfolio(portfolio_allocation, initial_investment):
 
     # Convert the region and sector allocations to percentages
     for region in allocated_portfolio["region_allocation"]:
-        allocated_portfolio["region_allocation"][region] = allocated_portfolio["region_allocation"][region] / total_region_allocation * 100
+        allocated_portfolio["region_allocation"][region] = allocated_portfolio["region_allocation"][
+                                                               region] / total_region_allocation * 100
 
     for sector in allocated_portfolio["sector_allocation"]:
-        allocated_portfolio["sector_allocation"][sector] = allocated_portfolio["sector_allocation"][sector] / total_sector_allocation * 100
+        allocated_portfolio["sector_allocation"][sector] = allocated_portfolio["sector_allocation"][
+                                                               sector] / total_sector_allocation * 100
 
     return allocated_portfolio
 
+
 def calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date):
     portfolio_prices = {}
-    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365*4)).strftime("%Y-%m-%d")  ####CHANGE YEAR HERE
+    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365 * 4)).strftime(
+        "%Y-%m-%d")  ####CHANGE YEAR HERE
 
     print(f"Initial Investment: {initial_investment}")
 
@@ -344,16 +356,19 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
                 stock_dates = sorted(stock_prices.keys())
                 if stock_dates:
                     stock_shares = stock["allocation"] / stock_prices[stock_dates[0]]
-                    print(f"Stock: {stock['symbol']}, Allocation: {stock['allocation']}, Initial Price: {stock_prices[stock_dates[0]]}, Shares: {stock_shares}")
+                    print(
+                        f"Stock: {stock['symbol']}, Allocation: {stock['allocation']}, Initial Price: {stock_prices[stock_dates[0]]}, Shares: {stock_shares}")
 
                     for date in stock_prices:
                         if date not in portfolio_prices:
                             portfolio_prices[date] = 0
                         portfolio_prices[date] += stock_prices[date] * stock_shares
                 else:
-                    print(f"No historical prices available for {stock['symbol']} for the given date range. Skipping performance calculation for this stock.")
+                    print(
+                        f"No historical prices available for {stock['symbol']} for the given date range. Skipping performance calculation for this stock.")
             else:
-                print(f"Historical prices not available for {stock['symbol']}. Skipping performance calculation for this stock.")
+                print(
+                    f"Historical prices not available for {stock['symbol']}. Skipping performance calculation for this stock.")
 
     print(f"Portfolio Prices: {portfolio_prices}")
 
@@ -381,6 +396,7 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
         "spy_performance": spy_performance
     }
 
+
 def get_previous_trading_day():
     # Load the trading calendar for NYSE
     nyse = mcal.get_calendar('NYSE')
@@ -400,6 +416,7 @@ def get_previous_trading_day():
         previous_trading_day = valid_days[-1]
 
     return previous_trading_day.strftime('%Y-%m-%d')
+
 
 # Function to plot pie chart
 def plot_pie_chart(data, title):

@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>Investment Questionnaire</h2>
-<form method="post">
+<form id="questionnaireForm" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <div>
@@ -13,4 +13,69 @@
     </div>
     <button type="submit">Submit</button>
 </form>
+
+<div id="loadingScreen">Loading, please wait...</div>
+
+<style>
+    #loadingScreen {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        text-align: center;
+        padding-top: 20%;
+        font-size: 24px;
+        z-index: 1000;
+    }
+</style>
+
+<script>
+    document.getElementById('questionnaireForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        document.getElementById('loadingScreen').style.display = 'block';
+
+        const formData = new FormData(this);
+        const data = {
+            csrfmiddlewaretoken: formData.get('csrfmiddlewaretoken'),
+            initial_investment: formData.get('initial_investment')
+        };
+
+        // Collect form data
+        formData.forEach((value, key) => {
+            if (key !== 'csrfmiddlewaretoken' && key !== 'initial_investment') {
+                data[key] = value;
+            }
+        });
+
+        // Send data to the server
+        fetch("{% url 'questionnaire' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                window.location.href = "{% url 'results' %}";
+            } else {
+                document.getElementById('loadingScreen').style.display = 'none';
+                // Handle form errors here (display to user)
+                alert('Error processing your request. Please try again.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            document.getElementById('loadingScreen').style.display = 'none';
+            // Handle error response
+            alert('An error occurred. Please try again.');
+        });
+    });
+</script>
 {% endblock %}
