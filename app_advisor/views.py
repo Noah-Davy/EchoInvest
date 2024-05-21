@@ -13,21 +13,29 @@ from .utils import (
 
 class AllocatePortfolioView(APIView):
     def post(self, request):
-        user_responses = request.data.get('user_responses')
-        initial_investment = float(request.data.get('initial_investment'))
+        try:
+            user_responses = request.data.get('user_responses')
+            initial_investment = float(request.data.get('initial_investment'))
 
-        # Backend logic moved to utils
-        risk_score = calculate_risk_score(user_responses)
-        risk_tolerance = determine_risk_tolerance(risk_score)
-        recommended_portfolio = recommend_portfolio(risk_tolerance)
-        allocated_portfolio = allocate_portfolio(recommended_portfolio, initial_investment)
-        end_date = get_previous_trading_day()
-        portfolio_performance = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
+            # Log the received data for debugging
+            print("User Responses:", user_responses)
+            print("Initial Investment:", initial_investment)
 
-        return Response({
-            'risk_score': risk_score,
-            'risk_tolerance': risk_tolerance,
-            'recommended_portfolio': recommended_portfolio,
-            'allocated_portfolio': allocated_portfolio,
-            'portfolio_performance': portfolio_performance
-        }, status=status.HTTP_200_OK)
+            # Backend logic moved to utils
+            risk_score = calculate_risk_score(user_responses)
+            risk_tolerance = determine_risk_tolerance(risk_score)
+            recommended_portfolio = recommend_portfolio(risk_tolerance)
+            allocated_portfolio = allocate_portfolio(recommended_portfolio, initial_investment)
+            end_date = get_previous_trading_day()
+            portfolio_performance = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
+
+            return Response({
+                'risk_score': risk_score,
+                'risk_tolerance': risk_tolerance,
+                'recommended_portfolio': recommended_portfolio,
+                'allocated_portfolio': allocated_portfolio,
+                'portfolio_performance': portfolio_performance
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(f"Error in AllocatePortfolioView: {e}")
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

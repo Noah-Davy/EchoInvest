@@ -80,23 +80,28 @@ class QuestionnaireView(View):
                 'initial_investment': initial_investment
             }
 
-            # Make a POST request to AllocatePortfolioView API endpoint
-            response = requests.post(
-                request.build_absolute_uri('/advisor/allocate-portfolio/'),
-                headers={'Content-Type': 'application/json'},
-                data=json.dumps(data)
-            )
-
-            if response.status_code == 200:
+            try:
+                # Make a POST request to AllocatePortfolioView API endpoint
+                response = requests.post(
+                    request.build_absolute_uri('/advisor/allocate-portfolio/'),
+                    headers={'Content-Type': 'application/json'},
+                    data=json.dumps(data)
+                )
+                response.raise_for_status()  # Raise an error for bad status codes
                 data = response.json()
+
+                # Log the received data for debugging
+                print("API Response:", data)
+
                 request.session['risk_score'] = data['risk_score']
                 request.session['risk_tolerance'] = data['risk_tolerance']
                 request.session['recommended_portfolio'] = data['recommended_portfolio']
                 request.session['allocated_portfolio'] = data['allocated_portfolio']
                 request.session['portfolio_performance'] = data['portfolio_performance']
+
                 return redirect('results')  # Redirect to the results page
-            else:
-                # Handle API error
+            except requests.exceptions.RequestException as e:
+                print(f"Request failed: {e}")
                 form.add_error(None, 'Error processing your request. Please try again later.')
 
         return render(request, 'portfolio/questionnaire.html', {'form': form})
