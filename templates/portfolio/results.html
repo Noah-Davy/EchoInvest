@@ -41,8 +41,8 @@
 <h3>Portfolio Performance (Last 10 Years)</h3>
 <p>Date | Portfolio Value | SPY Value</p>
 <ul>
-    {% for performance, spy in performance_zip %}
-    <li>{{ performance.0 }}: ${{ performance.1|floatformat:2 }} | ${{ spy.1|floatformat:2 }}</li>
+    {% for performance in performance_combined %}
+    <li>{{ performance.date }}: ${{ performance.portfolio_value|floatformat:2 }} | ${{ performance.spy_value|floatformat:2 }}</li>
     {% endfor %}
 </ul>
 
@@ -56,5 +56,4 @@
         <img src="{{ sector_allocation_chart }}" alt="Sector Allocation Pie Chart">
     </div>
 </div>
-
 {% endblock %}

@@ -66,23 +66,94 @@ stocks = {
     "stocks": [
         {"symbol": "AAPL", "name": "Apple Inc."},
         {"symbol": "MSFT", "name": "Microsoft Corporation"},
-        # (other stock entries omitted for brevity)
+        {"symbol": "AMZN", "name": "Amazon.com, Inc."},
+        {"symbol": "GOOGL", "name": "Alphabet Inc. Class A"},
+        {"symbol": "BRK.B", "name": "Berkshire Hathaway Inc. Class B"},
+        {"symbol": "JNJ", "name": "Johnson & Johnson"},
+        {"symbol": "V", "name": "Visa Inc. Class A"},
+        {"symbol": "PG", "name": "The Procter & Gamble Company"},
+        {"symbol": "JPM", "name": "JPMorgan Chase & Co."},
+        {"symbol": "UNH", "name": "UnitedHealth Group Incorporated"},
+        {"symbol": "SSNLF", "name": "Samsung Electronics Co., Ltd."},
+        {"symbol": "TSM", "name": "Taiwan Semiconductor Manufacturing Company Limited"},
+        {"symbol": "TM", "name": "Toyota Motor Corporation"},
+        {"symbol": "SHEL", "name": "Royal Dutch Shell plc"},
+        {"symbol": "NSRGY", "name": "Nestlé S.A."},
+        {"symbol": "TCEHY", "name": "Tencent Holdings Limited"},
+        {"symbol": "ASML.AS", "name": "ASML Holding N.V."},
+        {"symbol": "MC.PA", "name": "LVMH Moët Hennessy - Louis Vuitton SE"},
+        {"symbol": "RHHBY", "name": "Roche Holding AG"},
+        {"symbol": "BHP", "name": "BHP Group Limited"}
     ],
     "bonds": [
         {"symbol": "VCIT", "name": "Vanguard Intermediate-Term Corporate Bond ETF"},
-        # (other bond entries omitted for brevity)
+        {"symbol": "VCSH", "name": "Vanguard Short-Term Corporate Bond ETF"},
+        {"symbol": "LQD", "name": "iShares iBoxx $ Investment Grade Corporate Bond ETF"},
+        {"symbol": "HYG", "name": "iShares iBoxx $ High Yield Corporate Bond ETF"},
+        {"symbol": "TLT", "name": "iShares 20+ Year Treasury Bond ETF"},
+        {"symbol": "IEF", "name": "iShares 7-10 Year Treasury Bond ETF"},
+        {"symbol": "MUB", "name": "iShares National Muni Bond ETF"},
+        {"symbol": "TIP", "name": "iShares TIPS Bond ETF"},
+        {"symbol": "BIV", "name": "Vanguard Intermediate-Term Bond ETF"},
+        {"symbol": "BSV", "name": "Vanguard Short-Term Bond ETF"},
+        {"symbol": "MBB", "name": "iShares MBS ETF"},
+        {"symbol": "AGG", "name": "iShares Core U.S. Aggregate Bond ETF"},
+        {"symbol": "BND", "name": "Vanguard Total Bond Market ETF"},
+        {"symbol": "IGIB", "name": "iShares Intermediate-Term Corporate Bond ETF"},
+        {"symbol": "IGSB", "name": "iShares Short-Term Corporate Bond ETF"},
+        {"symbol": "BNDX", "name": "Vanguard Total International Bond ETF"},
+        {"symbol": "EMB", "name": "iShares J.P. Morgan USD Emerging Markets Bond ETF"},
+        {"symbol": "GOVT", "name": "iShares U.S. Treasury Bond ETF"},
+        {"symbol": "VTEB", "name": "Vanguard Tax-Exempt Bond ETF"},
+        {"symbol": "SHY", "name": "iShares 1-3 Year Treasury Bond ETF"}
     ],
     "cash": [
         {"symbol": "MINT", "name": "PIMCO Enhanced Short Maturity Active ETF"},
-        # (other cash entries omitted for brevity)
+        {"symbol": "SHV", "name": "iShares Short Treasury Bond ETF"},
+        {"symbol": "BIL", "name": "SPDR Bloomberg Barclays 1-3 Month T-Bill ETF"},
+        {"symbol": "NEAR", "name": "iShares Short Maturity Bond ETF"},
+        {"symbol": "GSY", "name": "Invesco Ultra Short Duration ETF"},
+        {"symbol": "JPST", "name": "JPMorgan Ultra-Short Income ETF"},
+        {"symbol": "GBIL", "name": "Goldman Sachs Access Treasury 0-1 Year ETF"},
+        {"symbol": "HDAW", "name": "Deutsche X-trackers MSCI All World ex US High Dividend Yield Hedged Equity ETF"},
+        {"symbol": "ICSH", "name": "iShares Ultra Short-Term Bond ETF"},
+        {"symbol": "SHM", "name": "SPDR Nuveen Bloomberg Barclays Short Term Municipal Bond ETF"},
+        {"symbol": "GOVT", "name": "iShares U.S. Treasury Bond ETF"},
+        {"symbol": "FLOT", "name": "iShares Floating Rate Bond ETF"},
+        {"symbol": "USFR", "name": "WisdomTree Floating Rate Treasury Fund"},
+        {"symbol": "TFLO", "name": "iShares Treasury Floating Rate Bond ETF"},
+        {"symbol": "VGSH", "name": "Vanguard Short-Term Treasury ETF"},
+        {"symbol": "SCHO", "name": "Schwab Short-Term U.S. Treasury ETF"},
+        {"symbol": "SPTS", "name": "SPDR Portfolio Short Term Treasury ETF"},
+        {"symbol": "CLTL", "name": "Invesco Treasury Collateral ETF"},
+        {"symbol": "FTSM", "name": "First Trust Enhanced Short Maturity ETF"},
+        {"symbol": "SCHO", "name": "Schwab Short-Term U.S. Treasury ETF"}
     ]
 }
 
 country_mapping = {
     "SSNLF": "South Korea",
     "TSM": "Taiwan",
-    # (other country mappings omitted for brevity)
+    "TM": "Japan",
+    "SHEL": "Netherlands",
+    "NSRGY": "Switzerland",
+    "TCEHY": "China",
+    "ASML.AS": "Netherlands",
+    "MC.PA": "France",
+    "RHHBY": "Switzerland",
+    "BHP": "Australia",
+    "AAPL": "USA",
+    "MSFT": "USA",
+    "AMZN": "USA",
+    "GOOGL": "USA",
+    "BRK.B": "USA",
+    "JNJ": "USA",
+    "V": "USA",
+    "PG": "USA",
+    "JPM": "USA",
+    "UNH": "USA"
 }
+
 
 # Function to calculate the risk score based on user responses
 def calculate_risk_score(responses):
@@ -90,6 +161,7 @@ def calculate_risk_score(responses):
     for question, response in responses.items():
         total_score += risk_scores[question][response]
     return total_score
+
 
 # Function to determine the risk tolerance level based on the risk score
 def determine_risk_tolerance(score):
@@ -104,9 +176,11 @@ def determine_risk_tolerance(score):
     else:
         return "Low tolerance for risk"
 
+
 # Function to recommend a portfolio based on the risk tolerance level
 def recommend_portfolio(risk_tolerance):
     return portfolios[risk_tolerance]
+
 
 # Function to fetch company overview data
 def fetch_company_overview(symbol):
@@ -114,6 +188,7 @@ def fetch_company_overview(symbol):
     response = requests.get(url)
     data = response.json()
     return data
+
 
 # Function to get the latest price with caching
 def get_latest_price(symbol, cache_expiry=3600):
@@ -147,6 +222,7 @@ def get_latest_price(symbol, cache_expiry=3600):
         print(f"Error retrieving price for {symbol}: {data}")
         return None
 
+
 def get_historical_prices(symbol, start_date, end_date):
     url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&outputsize=full&apikey={api_key}"
     response = requests.get(url)
@@ -170,6 +246,7 @@ def get_historical_prices(symbol, start_date, end_date):
                     break
 
     return prices
+
 
 # Function to allocate the portfolio based on the recommended portfolio and initial investment
 def allocate_portfolio(portfolio_allocation, initial_investment):
@@ -242,20 +319,24 @@ def allocate_portfolio(portfolio_allocation, initial_investment):
 
     # Convert the region and sector allocations to percentages
     for region in allocated_portfolio["region_allocation"]:
-        allocated_portfolio["region_allocation"][region] = allocated_portfolio["region_allocation"][region] / total_region_allocation * 100
+        allocated_portfolio["region_allocation"][region] = allocated_portfolio["region_allocation"][
+                                                               region] / total_region_allocation * 100
 
     for sector in allocated_portfolio["sector_allocation"]:
-        allocated_portfolio["sector_allocation"][sector] = allocated_portfolio["sector_allocation"][sector] / total_sector_allocation * 100
+        allocated_portfolio["sector_allocation"][sector] = allocated_portfolio["sector_allocation"][
+                                                               sector] / total_sector_allocation * 100
 
     return allocated_portfolio
 
+
 def calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date):
     portfolio_prices = {}
-    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365*10)).strftime("%Y-%m-%d")  ####CHANGE YEAR HERE
+    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365 * 10)).strftime(
+        "%Y-%m-%d")  # Change year here
 
     print(f"Initial Investment: {initial_investment}")
 
-    spy_prices = get_historical_prices("SPY", start_date, end_date)  ####CHANGE COMPARISON HERE
+    spy_prices = get_historical_prices("SPY", start_date, end_date)  # Change comparison here
 
     if spy_prices:
         spy_dates = sorted(spy_prices.keys())
@@ -277,16 +358,19 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
                 stock_dates = sorted(stock_prices.keys())
                 if stock_dates:
                     stock_shares = stock["allocation"] / stock_prices[stock_dates[0]]
-                    print(f"Stock: {stock['symbol']}, Allocation: {stock['allocation']}, Initial Price: {stock_prices[stock_dates[0]]}, Shares: {stock_shares}")
+                    print(
+                        f"Stock: {stock['symbol']}, Allocation: {stock['allocation']}, Initial Price: {stock_prices[stock_dates[0]]}, Shares: {stock_shares}")
 
                     for date in stock_prices:
                         if date not in portfolio_prices:
                             portfolio_prices[date] = 0
                         portfolio_prices[date] += stock_prices[date] * stock_shares
                 else:
-                    print(f"No historical prices available for {stock['symbol']} for the given date range. Skipping performance calculation for this stock.")
+                    print(
+                        f"No historical prices available for {stock['symbol']} for the given date range. Skipping performance calculation for this stock.")
             else:
-                print(f"Historical prices not available for {stock['symbol']}. Skipping performance calculation for this stock.")
+                print(
+                    f"Historical prices not available for {stock['symbol']}. Skipping performance calculation for this stock.")
 
     print(f"Portfolio Prices: {portfolio_prices}")
 
@@ -334,6 +418,7 @@ def get_previous_trading_day():
 
     return previous_trading_day.strftime('%Y-%m-%d')
 
+
 # Function to plot pie chart
 
 def plot_pie_chart(data, title, filename):
@@ -365,6 +450,7 @@ def ensure_json_serializable(data):
     else:
         return str(data)  # Convert any other types to string
 
+
 def save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance):
     # Ensure the data is JSON-serializable
     allocated_portfolio = ensure_json_serializable(allocated_portfolio)
@@ -380,6 +466,7 @@ def save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfo
         }
     )
 
+
 def generate_allocation_charts(allocated_portfolio):
     # Generate and save region allocation pie chart
     region_allocation = allocated_portfolio['region_allocation']
@@ -388,6 +475,7 @@ def generate_allocation_charts(allocated_portfolio):
     # Generate and save sector allocation pie chart
     sector_allocation = allocated_portfolio['sector_allocation']
     plot_pie_chart(sector_allocation, 'Sector Allocation', 'static/sector_allocation.png')
+
 
 def main(user, user_responses, initial_investment):
     # Calculate the risk score based on user responses
@@ -422,6 +510,5 @@ def main(user, user_responses, initial_investment):
         'risk_score': risk_score,
         'risk_tolerance': risk_tolerance,
         'allocated_portfolio': allocated_portfolio,
-        'performance_zip': performance_zip
+        'portfolio_performance': performance_zip
     }
-
