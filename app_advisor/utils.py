@@ -3,12 +3,16 @@ import os
 
 import pandas_market_calendars as mcal
 import pandas as pd
+import redis
 import requests
 import json
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import time
-
+import os
+import redis
+from rq import Queue, Connection
+from echoInvestFinal.worker import conn
 from echoInvestFinal import settings
 from .models import Portfolio
 
@@ -487,8 +491,21 @@ def main(user, user_responses, initial_investment):
     # Recommend a portfolio based on the risk tolerance level
     recommended_portfolio = recommend_portfolio(risk_tolerance)
 
-    # Allocate the portfolio based on the recommended portfolio and initial investment
-    allocated_portfolio = allocate_portfolio(recommended_portfolio, initial_investment)
+    # Create an RQ Queue
+    q = Queue(connection=conn)
+
+    # Enqueue the allocate_portfolio function call
+    job = q.enqueue(allocate_portfolio, recommended_portfolio, initial_investment)
+
+    # Wait for the job to finish and get the result
+    while not job.is_finished:
+        print("Waiting for the allocation to finish...")
+        time.sleep(1)
+
+    if job.is_failed:
+        raise Exception("The allocation job failed")
+
+    allocated_portfolio = job.result
 
     # Get the previous trading day
     end_date = get_previous_trading_day()
@@ -512,3 +529,7 @@ def main(user, user_responses, initial_investment):
         'allocated_portfolio': allocated_portfolio,
         'portfolio_performance': performance_zip
     }
+
+# Ensure to add the following for RQ configuration
+redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
+conn = redis.from_url(redis_url)
