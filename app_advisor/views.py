@@ -35,8 +35,30 @@ def questionnaire(request):
                 return JsonResponse({'job_id': job_id})
             else:
                 # Handle synchronous response
-                return render(request, 'portfolio/results.html', job_id)
+                results = job_id
 
+                # Generate and save charts
+                plot_pie_chart(results['allocated_portfolio']['region_allocation'], 'Regional Allocation',
+                               'region_allocation.png')
+                plot_pie_chart(results['allocated_portfolio']['sector_allocation'], 'Sector Allocation',
+                               'sector_allocation.png')
+
+                performance_combined = []
+                if 'spy_performance' in results:
+                    # Combine portfolio and spy performance data for easier rendering in template
+                    performance_combined = [
+                        {'date': date, 'portfolio_value': port_value, 'spy_value': spy_value}
+                        for (date, port_value), (_, spy_value) in zip(results['portfolio_performance'], results['spy_performance'])
+                    ]
+
+                return render(request, 'portfolio/results.html', {
+                    'risk_score': results['risk_score'],
+                    'risk_tolerance': results['risk_tolerance'],
+                    'allocated_portfolio': results['allocated_portfolio'],
+                    'performance_combined': performance_combined,
+                    'region_allocation_chart': os.path.join(settings.STATIC_URL, 'region_allocation.png'),
+                    'sector_allocation_chart': os.path.join(settings.STATIC_URL, 'sector_allocation.png')
+                })
     else:
         form = QuestionnaireForm()
 
@@ -56,12 +78,25 @@ def post_process_allocation(request, job_id):
         user = job.meta['user']
         risk_score = job.meta['risk_score']
         risk_tolerance = job.meta['risk_tolerance']
-        initial_investment = job.args[1]
+        initial_investment = job.args[1]  # Retrieve initial_investment from job args
 
+        # Get the previous trading day
         end_date = get_previous_trading_day()
+
+        # Calculate the portfolio performance over the last 10 years
         portfolio_performance_data = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
+
+        # Generate and save allocation charts
         generate_allocation_charts(allocated_portfolio)
+        plot_pie_chart(allocated_portfolio['region_allocation'], 'Regional Allocation',
+                       'region_allocation.png')
+        plot_pie_chart(allocated_portfolio['sector_allocation'], 'Sector Allocation',
+                       'sector_allocation.png')
+
+        # Save the portfolio to the database
         save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance_data)
+
+        # Zip the portfolio and SPY performance data
         performance_zip = list(
             zip(portfolio_performance_data['portfolio_performance'], portfolio_performance_data['spy_performance']))
 
@@ -70,12 +105,15 @@ def post_process_allocation(request, job_id):
             'risk_score': risk_score,
             'risk_tolerance': risk_tolerance,
             'allocated_portfolio': allocated_portfolio,
-            'portfolio_performance': performance_zip
+            'portfolio_performance': performance_zip,
+            'region_allocation_chart': os.path.join(settings.STATIC_URL, 'region_allocation.png'),
+            'sector_allocation_chart': os.path.join(settings.STATIC_URL, 'sector_allocation.png')
         })
     elif job.is_failed:
         return JsonResponse({'status': 'failed', 'error': str(job.exc_info)})
     else:
         return JsonResponse({'status': job.get_status()})
+
 
 @login_required
 def results(request):
