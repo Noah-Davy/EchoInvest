@@ -1,4 +1,6 @@
-{% extends "portfolio/base.html" %}
+{% extends 'portfolio/base.html' %}
 
-{% block title %}Home{% endblock %}
-
+{% block content %}
+<h1>Welcome to EchoInvest</h1>
+<a href="{% url 'take_questionnaire' %}">Take Questionnaire</a>
+{% endblock %}

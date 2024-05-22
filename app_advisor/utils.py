@@ -1,3 +1,4 @@
+# utils.py
 import pandas_market_calendars as mcal
 import pandas as pd
 import requests
@@ -408,3 +409,29 @@ def plot_pie_chart(data, title):
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
     plt.title(title)
     plt.show()
+
+def main(user_responses, initial_investment):
+    # Calculate the risk score based on user responses
+    risk_score = calculate_risk_score(user_responses)
+
+    # Determine the risk tolerance level based on the risk score
+    risk_tolerance = determine_risk_tolerance(risk_score)
+
+    # Recommend a portfolio based on the risk tolerance level
+    recommended_portfolio = recommend_portfolio(risk_tolerance)
+
+    # Allocate the portfolio based on the recommended portfolio and initial investment
+    allocated_portfolio = allocate_portfolio(recommended_portfolio, initial_investment)  ### NEEDS TO BE PASSED BACK TO FRONT END
+
+    # Get the previous trading day
+    end_date = get_previous_trading_day()
+
+    # Calculate the portfolio performance over the last 10 years
+    portfolio_performance = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date) #### NEEDS TO BE PASSED TO FRONT END
+
+    return {
+        'risk_score': risk_score,
+        'risk_tolerance': risk_tolerance,
+        'allocated_portfolio': allocated_portfolio,
+        'portfolio_performance': portfolio_performance
+    }

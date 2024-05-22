@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('allocate-portfolio/', views.AllocatePortfolioView.as_view(), name='allocate_portfolio'),
+    path('questionnaire/', views.questionnaire, name='questionnaire'),
+    path('results/', views.results, name='results'),
+    path('landing/', views.landing, name='landing'),
 ]
 

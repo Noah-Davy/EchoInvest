@@ -55,7 +55,7 @@ def register(request):
 class CustomLoginView(LoginView):
     template_name = 'portfolio/login.html'
     redirect_authenticated_user = True
-    next_page = reverse_lazy('questionnaire')
+    next_page = reverse_lazy('landing')  # Redirect to the landing page
 
     def form_valid(self, form):
         # Authenticate and login the user
@@ -63,56 +63,7 @@ class CustomLoginView(LoginView):
         login(self.request, user)
         return super().form_valid(form)
 
-
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('home')
 
 
-class QuestionnaireView(View):
-    def get(self, request):
-        form = QuestionnaireForm()
-        return render(request, 'portfolio/questionnaire.html', {'form': form})
-
-    def post(self, request):
-        form = QuestionnaireForm(request.POST)
-        if form.is_valid():
-            user_responses = form.cleaned_data
-            initial_investment = request.POST.get('initial_investment')
-
-            # Make a POST request to AllocatePortfolioView API endpoint
-            response = requests.post(
-                request.build_absolute_uri('/advisor/allocate-portfolio/'),
-                json={
-                    'user_responses': user_responses,
-                    'initial_investment': initial_investment
-                }
-            )
-
-            if response.status_code == 200:
-                data = response.json()
-                context = {
-                    'risk_score': data['risk_score'],
-                    'risk_tolerance': data['risk_tolerance'],
-                    'recommended_portfolio': data['recommended_portfolio'],
-                    'allocated_portfolio': data['allocated_portfolio'],
-                    'portfolio_performance': data['portfolio_performance']
-                }
-                return render(request, 'portfolio/results.html', context)
-            else:
-                # Handle API error
-                form.add_error(None, 'Error processing your request. Please try again later.')
-
-        return render(request, 'portfolio/questionnaire.html', {'form': form})
-
-
-class ResultsView(View):
-    def get(self, request):
-        # This data should be passed from the QuestionnaireView after processing
-        context = {
-            'risk_score': request.session.get('risk_score'),
-            'risk_tolerance': request.session.get('risk_tolerance'),
-            'recommended_portfolio': request.session.get('recommended_portfolio'),
-            'allocated_portfolio': request.session.get('allocated_portfolio'),
-            'portfolio_performance': request.session.get('portfolio_performance')
-        }
-        return render(request, 'portfolio/results.html', context)

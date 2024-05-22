@@ -1,0 +1,6 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+<p>You are successfully logged in.</p>
+<a href="{% url 'questionnaire' %}" class="btn btn-primary">Take Questionnaire</a>
+{% endblock %}
