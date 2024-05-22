@@ -334,6 +334,7 @@ def get_previous_trading_day():
     return previous_trading_day.strftime('%Y-%m-%d')
 
 # Function to plot pie chart
+
 def plot_pie_chart(data, title, filename):
     labels = list(data.keys())
     sizes = list(data.values())
@@ -342,8 +343,11 @@ def plot_pie_chart(data, title, filename):
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
     plt.title(title)
 
+    # Ensure the directory exists
+    filepath = os.path.join(settings.BASE_DIR, 'static', filename)
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
     # Save the figure
-    filepath = os.path.join(settings.MEDIA_ROOT, filename)
     plt.savefig(filepath)
     plt.close(fig1)
 

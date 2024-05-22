@@ -28,8 +28,8 @@ def questionnaire(request):
                 'risk_tolerance': results['risk_tolerance'],
                 'allocated_portfolio': results['allocated_portfolio'],
                 'portfolio_performance': results['portfolio_performance'],
-                'region_allocation_chart': os.path.join(settings.MEDIA_URL, 'region_allocation.png'),
-                'sector_allocation_chart': os.path.join(settings.MEDIA_URL, 'sector_allocation.png')
+                'region_allocation_chart': os.path.join(settings.STATIC_URL, 'region_allocation.png'),
+                'sector_allocation_chart': os.path.join(settings.STATIC_URL, 'sector_allocation.png')
             })
     else:
         form = QuestionnaireForm()
