@@ -8,15 +8,15 @@
 <p><strong>Risk Tolerance:</strong> {{ risk_tolerance }}</p>
 
 <h3>Allocated Portfolio</h3>
-<p><strong>Total Investment:</strong> ${{ allocated_portfolio.total_investment }}</p>
+<p><strong>Total Investment:</strong> ${{ allocated_portfolio.total_investment|floatformat:2 }}</p>
 {% for asset_class in allocated_portfolio.asset_classes %}
     <div>
         <h4>{{ asset_class.name|capfirst }}</h4>
-        <p><strong>Allocation:</strong> ${{ asset_class.allocation }}</p>
-        <p><strong>Percentage:</strong> {{ asset_class.percentage }}%</p>
+        <p><strong>Allocation:</strong> ${{ asset_class.allocation|floatformat:2 }}</p>
+        <p><strong>Percentage:</strong> {{ asset_class.percentage|floatformat:2 }}%</p>
         <ul>
             {% for stock in asset_class.stocks %}
-            <li>{{ stock.name }} ({{ stock.symbol }}): ${{ stock.allocation }} ({{ stock.shares }} shares at ${{ stock.price }})</li>
+            <li>{{ stock.name }} ({{ stock.symbol }}): ${{ stock.allocation|floatformat:2 }} ({{ stock.shares|floatformat:2 }} shares at ${{ stock.price|floatformat:2 }})</li>
             {% endfor %}
         </ul>
     </div>
@@ -40,7 +40,7 @@
 <p>Date | Portfolio Value | SPY Value</p>
 <ul>
     {% for performance in portfolio_performance %}
-    <li>{{ performance.date }}: ${{ performance.portfolio_value }} | ${{ performance.spy_value }}</li>
+    <li>{{ performance.date }}: ${{ performance.portfolio_value|floatformat:2 }} | ${{ performance.spy_value|floatformat:2 }}</li>
     {% endfor %}
 </ul>
 
