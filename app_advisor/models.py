@@ -13,7 +13,4 @@ class Portfolio(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        # Check if user is an instance of the custom user model
-        if isinstance(self.user, settings.AUTH_USER_MODEL):
-            return f"Portfolio of {self.user.email}"
-        return "Portfolio of an unknown user"
+        return f"Portfolio of {self.user.username}"
