@@ -153,7 +153,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
 
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
 
+if DJANGO_ENV == 'production':
+    REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+    RQ_QUEUES = {
+        'default': {
+            'URL': REDIS_URL,
+            'DEFAULT_TIMEOUT': 500,
+        },
+    }
 
 DATABASES = {
     'default': dj_database_url.config(

@@ -1,6 +1,6 @@
 # utils.py
 import os
-
+from .config import DJANGO_ENV, q
 import pandas_market_calendars as mcal
 import pandas as pd
 import redis
@@ -491,25 +491,35 @@ def main(user, user_responses, initial_investment):
     # Recommend a portfolio based on the risk tolerance level
     recommended_portfolio = recommend_portfolio(risk_tolerance)
 
-    # Create an RQ Queue
-    q = Queue(connection=conn)
+    if DJANGO_ENV == 'production':
+        # Enqueue the allocate_portfolio function call
+        job = q.enqueue(allocate_portfolio, recommended_portfolio, initial_investment)
 
-    # Enqueue the allocate_portfolio function call
-    job = q.enqueue(allocate_portfolio, recommended_portfolio, initial_investment)
+        # Store meta information for post-processing
+        job.meta['user'] = user
+        job.meta['risk_score'] = risk_score
+        job.meta['risk_tolerance'] = risk_tolerance
+        job.save_meta()
 
-    # Store additional metadata in the job
-    job.meta['user'] = user
-    job.meta['risk_score'] = risk_score
-    job.meta['risk_tolerance'] = risk_tolerance
-    job.save_meta()
+        return job.id
+    else:
+        # Run synchronously for development
+        allocated_portfolio = allocate_portfolio(recommended_portfolio, initial_investment)
 
-    # Return the job ID so the job status can be checked asynchronously
-    return {
-        'job_id': job.get_id(),
-        'risk_score': risk_score,
-        'risk_tolerance': risk_tolerance,
-        'recommended_portfolio': recommended_portfolio
-    }
+        # Rest of the synchronous code as required
+        end_date = get_previous_trading_day()
+        portfolio_performance_data = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
+        generate_allocation_charts(allocated_portfolio)
+        save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance_data)
+        performance_zip = list(
+            zip(portfolio_performance_data['portfolio_performance'], portfolio_performance_data['spy_performance']))
+
+        return {
+            'risk_score': risk_score,
+            'risk_tolerance': risk_tolerance,
+            'allocated_portfolio': allocated_portfolio,
+            'portfolio_performance': performance_zip
+        }
 
 # Ensure to add the following for RQ configuration
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
