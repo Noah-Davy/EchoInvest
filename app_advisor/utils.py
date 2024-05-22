@@ -6,6 +6,7 @@ import json
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import time
+from .models import Portfolio
 
 # Alpha Vantage API key
 api_key = 'V235L3PAVTJ14VXC'
@@ -410,7 +411,18 @@ def plot_pie_chart(data, title):
     plt.title(title)
     plt.show()
 
-def main(user_responses, initial_investment):
+def save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance):
+    Portfolio.objects.create(
+        user=user,
+        risk_score=risk_score,
+        risk_tolerance=risk_tolerance,
+        portfolio_data={
+            'allocated_portfolio': allocated_portfolio,
+            'portfolio_performance': portfolio_performance
+        }
+    )
+
+def main(user, user_responses, initial_investment):
     # Calculate the risk score based on user responses
     risk_score = calculate_risk_score(user_responses)
 
@@ -428,6 +440,9 @@ def main(user_responses, initial_investment):
 
     # Calculate the portfolio performance over the last 10 years
     portfolio_performance = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date) #### NEEDS TO BE PASSED TO FRONT END
+
+    # Save the portfolio to the database
+    save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance)
 
     return {
         'risk_score': risk_score,
