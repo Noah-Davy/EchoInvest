@@ -251,7 +251,7 @@ def allocate_portfolio(portfolio_allocation, initial_investment):
 
 def calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date):
     portfolio_prices = {}
-    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365*4)).strftime("%Y-%m-%d")  ####CHANGE YEAR HERE
+    start_date = (datetime.strptime(end_date, "%Y-%m-%d") - timedelta(days=365*10)).strftime("%Y-%m-%d")  ####CHANGE YEAR HERE
 
     print(f"Initial Investment: {initial_investment}")
 
@@ -298,11 +298,11 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
 
         for date in sorted_dates:
             if portfolio_prices[date] != 0:
-                portfolio_performance.append(portfolio_prices[date])
+                portfolio_performance.append((date, portfolio_prices[date]))
                 if date in spy_prices:
-                    spy_performance.append(spy_prices[date] * spy_shares)
+                    spy_performance.append((date, spy_prices[date] * spy_shares))
                 else:
-                    spy_performance.append(None)
+                    spy_performance.append((date, None))
     else:
         print("No historical price data available for the portfolio. Skipping performance calculation.")
         portfolio_performance = []
@@ -313,6 +313,7 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
         "portfolio_performance": portfolio_performance,
         "spy_performance": spy_performance
     }
+
 
 def get_previous_trading_day():
     # Load the trading calendar for NYSE
@@ -405,17 +406,22 @@ def main(user, user_responses, initial_investment):
     end_date = get_previous_trading_day()
 
     # Calculate the portfolio performance over the last 10 years
-    portfolio_performance = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
+    portfolio_performance_data = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
 
     # Generate and save allocation charts
     generate_allocation_charts(allocated_portfolio)
 
     # Save the portfolio to the database
-    save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance)
+    save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance_data)
+
+    # Zip the portfolio and SPY performance data
+    performance_zip = list(
+        zip(portfolio_performance_data['portfolio_performance'], portfolio_performance_data['spy_performance']))
 
     return {
         'risk_score': risk_score,
         'risk_tolerance': risk_tolerance,
         'allocated_portfolio': allocated_portfolio,
-        'portfolio_performance': portfolio_performance
+        'performance_zip': performance_zip
     }
+
