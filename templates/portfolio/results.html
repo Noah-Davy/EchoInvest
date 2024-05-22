@@ -1,5 +1,7 @@
 {% extends "portfolio/base.html" %}
 
+{% load static %}
+
 {% block title %}Results{% endblock %}
 
 {% block content %}
@@ -48,10 +50,10 @@
 <div>
     <h3>Portfolio Allocation Graphs</h3>
     <div>
-        <img src="{% static 'region_allocation.png' %}" alt="Region Allocation Pie Chart">
+        <img src="{{ region_allocation_chart }}" alt="Region Allocation Pie Chart">
     </div>
     <div>
-        <img src="{% static 'sector_allocation.png' %}" alt="Sector Allocation Pie Chart">
+        <img src="{{ sector_allocation_chart }}" alt="Sector Allocation Pie Chart">
     </div>
 </div>
 {% endblock %}

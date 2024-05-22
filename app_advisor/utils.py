@@ -1,4 +1,6 @@
 # utils.py
+import os
+
 import pandas_market_calendars as mcal
 import pandas as pd
 import requests
@@ -6,6 +8,8 @@ import json
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import time
+
+from echoInvestFinal import settings
 from .models import Portfolio
 
 # Alpha Vantage API key
@@ -330,7 +334,7 @@ def get_previous_trading_day():
     return previous_trading_day.strftime('%Y-%m-%d')
 
 # Function to plot pie chart
-def plot_pie_chart(data, title, filename=None):
+def plot_pie_chart(data, title, filename):
     labels = list(data.keys())
     sizes = list(data.values())
     fig1, ax1 = plt.subplots()
@@ -338,11 +342,10 @@ def plot_pie_chart(data, title, filename=None):
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
     plt.title(title)
 
-    if filename:
-        plt.savefig(filename)
-        plt.close()
-    else:
-        plt.show()
+    # Save the figure
+    filepath = os.path.join(settings.MEDIA_ROOT, filename)
+    plt.savefig(filepath)
+    plt.close(fig1)
 
 
 def ensure_json_serializable(data):
