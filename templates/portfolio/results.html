@@ -5,55 +5,111 @@
 {% block title %}Results{% endblock %}
 
 {% block content %}
-<h2>Investment Results</h2>
-<p><strong>Risk Score:</strong> {{ risk_score }}</p>
-<p><strong>Risk Tolerance:</strong> {{ risk_tolerance }}</p>
+<div class="container">
+    <h2 class="mt-4">Investment Results</h2>
+    <p><strong>Risk Score:</strong> {{ risk_score }}</p>
+    <p><strong>Risk Tolerance:</strong> {{ risk_tolerance }}</p>
 
-<h3>Allocated Portfolio</h3>
-<p><strong>Total Investment:</strong> ${{ allocated_portfolio.total_investment|floatformat:2 }}</p>
-{% for asset_class in allocated_portfolio.asset_classes %}
-    <div>
-        <h4>{{ asset_class.name|capfirst }}</h4>
-        <p><strong>Allocation:</strong> ${{ asset_class.allocation|floatformat:2 }}</p>
-        <p><strong>Percentage:</strong> {{ asset_class.percentage|floatformat:2 }}%</p>
-        <ul>
-            {% for stock in asset_class.stocks %}
-            <li>{{ stock.name }} ({{ stock.symbol }}): ${{ stock.allocation|floatformat:2 }} ({{ stock.shares|floatformat:2 }} shares at ${{ stock.price|floatformat:2 }})</li>
+    <h3 class="mt-4">Allocated Portfolio</h3>
+    <p><strong>Total Investment:</strong> ${{ allocated_portfolio.total_investment|floatformat:2 }}</p>
+
+    {% for asset_class in allocated_portfolio.asset_classes %}
+        <div class="mt-4">
+            <h4>{{ asset_class.name|capfirst }}</h4>
+            <p><strong>Allocation:</strong> ${{ asset_class.allocation|floatformat:2 }}</p>
+            <p><strong>Percentage:</strong> {{ asset_class.percentage|floatformat:2 }}%</p>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Stock Name</th>
+                        <th>Symbol</th>
+                        <th>Allocation ($)</th>
+                        <th>Shares</th>
+                        <th>Price ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in asset_class.stocks %}
+                    <tr>
+                        <td>{{ stock.name }}</td>
+                        <td>{{ stock.symbol }}</td>
+                        <td>${{ stock.allocation|floatformat:2 }}</td>
+                        <td>{{ stock.shares|floatformat:2 }}</td>
+                        <td>${{ stock.price|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+
+    <h3 class="mt-4">Region Allocation</h3>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Region</th>
+                <th>Percentage (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for region, percentage in allocated_portfolio.region_allocation.items %}
+            <tr>
+                <td>{{ region }}</td>
+                <td>{{ percentage|floatformat:2 }}%</td>
+            </tr>
             {% endfor %}
-        </ul>
-    </div>
-{% endfor %}
+        </tbody>
+    </table>
 
-<h3>Region Allocation</h3>
-<ul>
-    {% for region, percentage in allocated_portfolio.region_allocation.items %}
-    <li>{{ region }}: {{ percentage|floatformat:2 }}%</li>
-    {% endfor %}
-</ul>
+    <h3 class="mt-4">Sector Allocation</h3>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Sector</th>
+                <th>Percentage (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sector, percentage in allocated_portfolio.sector_allocation.items %}
+            <tr>
+                <td>{{ sector }}</td>
+                <td>{{ percentage|floatformat:2 }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-<h3>Sector Allocation</h3>
-<ul>
-    {% for sector, percentage in allocated_portfolio.sector_allocation.items %}
-    <li>{{ sector }}: {{ percentage|floatformat:2 }}%</li>
-    {% endfor %}
-</ul>
+    <h3 class="mt-4">Portfolio Performance (Last 10 Years)</h3>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Portfolio Value ($)</th>
+                <th>SPY Value ($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for performance in performance_combined %}
+            <tr>
+                <td>{{ performance.date }}</td>
+                <td>${{ performance.portfolio_value|floatformat:2 }}</td>
+                <td>${{ performance.spy_value|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-<h3>Portfolio Performance (Last 10 Years)</h3>
-<p>Date | Portfolio Value | SPY Value</p>
-<ul>
-    {% for performance in performance_combined %}
-    <li>{{ performance.date }}: ${{ performance.portfolio_value|floatformat:2 }} | ${{ performance.spy_value|floatformat:2 }}</li>
-    {% endfor %}
-</ul>
-
-<!-- Include Graphs -->
-<div>
-    <h3>Portfolio Allocation Graphs</h3>
-    <div>
-        <img src="{{ region_allocation_chart }}" alt="Region Allocation Pie Chart">
-    </div>
-    <div>
-        <img src="{{ sector_allocation_chart }}" alt="Sector Allocation Pie Chart">
+    <!-- Include Graphs -->
+    <div class="mt-4">
+        <h3>Portfolio Allocation Graphs</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ region_allocation_chart }}" class="img-fluid" alt="Region Allocation Pie Chart">
+            </div>
+            <div class="col-md-6">
+                <img src="{{ sector_allocation_chart }}" class="img-fluid" alt="Sector Allocation Pie Chart">
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

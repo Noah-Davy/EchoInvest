@@ -11,4 +11,67 @@
         {{ form.errors }}
     </div>
 {% endif %}
+    <script type="text/javascript">
+        function checkJobStatus(jobId) {
+            fetch(`/check_job_status/${jobId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'finished') {
+                        // Job finished, get the results and update the page
+                        fetch(`/post_process_allocation/${jobId}/`)
+                            .then(response => response.json())
+                            .then(result => {
+                                if (result.status === 'finished') {
+                                    // Update the results section with the data from the server
+                                    document.getElementById('risk_score').innerText = result.risk_score;
+                                    document.getElementById('risk_tolerance').innerText = result.risk_tolerance;
+
+                                    // Handle allocated portfolio and performance data
+                                    // Update your HTML elements accordingly
+
+                                    // Update charts
+                                    document.getElementById('region_allocation_chart').src = result.region_allocation_chart;
+                                    document.getElementById('sector_allocation_chart').src = result.sector_allocation_chart;
+                                } else {
+                                    alert('Error: ' + result.error);
+                                }
+                            });
+                    } else if (data.status === 'failed') {
+                        alert('The job failed: ' + data.error);
+                    } else {
+                        // Job is still running, poll again after some time
+                        setTimeout(() => checkJobStatus(jobId), 1000);
+                    }
+                });
+        }
+
+        // Function to initiate job status checking
+        function startJobStatusPolling(jobId) {
+            // Initially check the job status
+            checkJobStatus(jobId);
+        }
+
+        document.getElementById('questionnaireForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.job_id) {
+                    // Hide the form and show the results section
+                    document.getElementById('questionnaireForm').style.display = 'none';
+                    document.getElementById('results').style.display = 'block';
+
+                    // Start polling the job status
+                    startJobStatusPolling(data.job_id);
+                }
+            });
+        });
+    </script>
+
 {% endblock %}
