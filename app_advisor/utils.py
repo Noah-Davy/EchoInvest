@@ -497,37 +497,18 @@ def main(user, user_responses, initial_investment):
     # Enqueue the allocate_portfolio function call
     job = q.enqueue(allocate_portfolio, recommended_portfolio, initial_investment)
 
-    # Wait for the job to finish and get the result
-    while not job.is_finished:
-        print("Waiting for the allocation to finish...")
-        time.sleep(1)
+    # Store additional metadata in the job
+    job.meta['user'] = user
+    job.meta['risk_score'] = risk_score
+    job.meta['risk_tolerance'] = risk_tolerance
+    job.save_meta()
 
-    if job.is_failed:
-        raise Exception("The allocation job failed")
-
-    allocated_portfolio = job.result
-
-    # Get the previous trading day
-    end_date = get_previous_trading_day()
-
-    # Calculate the portfolio performance over the last 10 years
-    portfolio_performance_data = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
-
-    # Generate and save allocation charts
-    generate_allocation_charts(allocated_portfolio)
-
-    # Save the portfolio to the database
-    save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance_data)
-
-    # Zip the portfolio and SPY performance data
-    performance_zip = list(
-        zip(portfolio_performance_data['portfolio_performance'], portfolio_performance_data['spy_performance']))
-
+    # Return the job ID so the job status can be checked asynchronously
     return {
+        'job_id': job.get_id(),
         'risk_score': risk_score,
         'risk_tolerance': risk_tolerance,
-        'allocated_portfolio': allocated_portfolio,
-        'portfolio_performance': performance_zip
+        'recommended_portfolio': recommended_portfolio
     }
 
 # Ensure to add the following for RQ configuration
