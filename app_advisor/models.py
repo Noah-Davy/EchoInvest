@@ -6,9 +6,9 @@ from django.conf import settings
 class Portfolio(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     risk_score = models.IntegerField()
-    risk_tolerance = models.CharField(max_length=255)
-    portfolio_data = models.JSONField()  # To store the portfolio allocation and performance as JSON
-
+    risk_tolerance = models.CharField(max_length=50)
+    allocated_portfolio = models.JSONField()
+    portfolio_performance = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
