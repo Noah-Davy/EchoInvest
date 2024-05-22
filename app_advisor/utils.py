@@ -330,14 +330,20 @@ def get_previous_trading_day():
     return previous_trading_day.strftime('%Y-%m-%d')
 
 # Function to plot pie chart
-def plot_pie_chart(data, title):
+def plot_pie_chart(data, title, filename=None):
     labels = list(data.keys())
     sizes = list(data.values())
     fig1, ax1 = plt.subplots()
     ax1.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
     plt.title(title)
-    plt.show()
+
+    if filename:
+        plt.savefig(filename)
+        plt.close()
+    else:
+        plt.show()
+
 
 def ensure_json_serializable(data):
     if isinstance(data, dict):
@@ -366,6 +372,15 @@ def save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfo
         }
     )
 
+def generate_allocation_charts(allocated_portfolio):
+    # Generate and save region allocation pie chart
+    region_allocation = allocated_portfolio['region_allocation']
+    plot_pie_chart(region_allocation, 'Regional Allocation', 'static/region_allocation.png')
+
+    # Generate and save sector allocation pie chart
+    sector_allocation = allocated_portfolio['sector_allocation']
+    plot_pie_chart(sector_allocation, 'Sector Allocation', 'static/sector_allocation.png')
+
 def main(user, user_responses, initial_investment):
     # Calculate the risk score based on user responses
     risk_score = calculate_risk_score(user_responses)
@@ -384,6 +399,9 @@ def main(user, user_responses, initial_investment):
 
     # Calculate the portfolio performance over the last 10 years
     portfolio_performance = calculate_portfolio_performance(allocated_portfolio, initial_investment, end_date)
+
+    # Generate and save allocation charts
+    generate_allocation_charts(allocated_portfolio)
 
     # Save the portfolio to the database
     save_portfolio(user, risk_score, risk_tolerance, allocated_portfolio, portfolio_performance)

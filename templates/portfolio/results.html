@@ -4,20 +4,22 @@
 
 {% block content %}
 <h2>Investment Results</h2>
-<p>Risk Score: {{ risk_score }}</p>
-<p>Risk Tolerance: {{ risk_tolerance }}</p>
+<p><strong>Risk Score:</strong> {{ risk_score }}</p>
+<p><strong>Risk Tolerance:</strong> {{ risk_tolerance }}</p>
 
 <h3>Allocated Portfolio</h3>
-<p>Total Investment: ${{ allocated_portfolio.total_investment }}</p>
+<p><strong>Total Investment:</strong> ${{ allocated_portfolio.total_investment }}</p>
 {% for asset_class in allocated_portfolio.asset_classes %}
-    <h4>{{ asset_class.name|capfirst }}</h4>
-    <p>Allocation: ${{ asset_class.allocation }}</p>
-    <p>Percentage: {{ asset_class.percentage }}%</p>
-    <ul>
-        {% for stock in asset_class.stocks %}
-        <li>{{ stock.name }} ({{ stock.symbol }}): ${{ stock.allocation }} ({{ stock.shares }} shares at ${{ stock.price }})</li>
-        {% endfor %}
-    </ul>
+    <div>
+        <h4>{{ asset_class.name|capfirst }}</h4>
+        <p><strong>Allocation:</strong> ${{ asset_class.allocation }}</p>
+        <p><strong>Percentage:</strong> {{ asset_class.percentage }}%</p>
+        <ul>
+            {% for stock in asset_class.stocks %}
+            <li>{{ stock.name }} ({{ stock.symbol }}): ${{ stock.allocation }} ({{ stock.shares }} shares at ${{ stock.price }})</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endfor %}
 
 <h3>Region Allocation</h3>
@@ -41,4 +43,15 @@
     <li>{{ performance.date }}: ${{ performance.portfolio_value }} | ${{ performance.spy_value }}</li>
     {% endfor %}
 </ul>
+
+<!-- Include Graphs -->
+<div>
+    <h3>Portfolio Allocation Graphs</h3>
+    <div>
+        <img src="{% static 'region_allocation.png' %}" alt="Region Allocation Pie Chart">
+    </div>
+    <div>
+        <img src="{% static 'sector_allocation.png' %}" alt="Sector Allocation Pie Chart">
+    </div>
+</div>
 {% endblock %}
