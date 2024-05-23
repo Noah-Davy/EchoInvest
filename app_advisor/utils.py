@@ -1,9 +1,21 @@
-# utils.py
+import os
+import pandas_market_calendars as mcal
+import pandas as pd
+import redis
+import requests
+import json
+from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+from typing import List, Tuple
+from .config import DJANGO_ENV, q
+from .models import Portfolio
+from echoInvestFinal import settings
 import os
 from .config import DJANGO_ENV, q
 import pandas_market_calendars as mcal
 import pandas as pd
 import redis
+import matplotlib.dates as mdates
 import requests
 import json
 from datetime import datetime, timedelta
@@ -403,6 +415,11 @@ def calculate_portfolio_performance(allocated_portfolio, initial_investment, end
     }
 
 
+
+
+
+
+
 def get_previous_trading_day():
     # Load the trading calendar for NYSE
     nyse = mcal.get_calendar('NYSE')
@@ -423,7 +440,43 @@ def get_previous_trading_day():
     return previous_trading_day.strftime('%Y-%m-%d')
 
 
-# Function to plot pie chart
+from typing import List, Tuple
+import matplotlib.pyplot as plt
+from datetime import datetime
+import os
+
+from typing import List, Tuple
+import matplotlib.pyplot as plt
+from datetime import datetime
+import os
+import matplotlib.dates as mdates
+
+
+def plot_performance_chart(dates, portfolio_values, spy_values, filename):
+    plt.figure(figsize=(12, 6))
+    plt.plot(dates, portfolio_values, label="Portfolio")
+    plt.plot(dates, spy_values, label="SPY")
+    plt.xlabel("Date")
+    plt.ylabel("Value")
+    plt.title("Portfolio vs SPY Performance")
+    plt.legend()
+
+    # Set x-axis labels at regular intervals
+    num_labels = 10
+    interval = len(dates) // num_labels
+    plt.xticks(range(0, len(dates), interval), [dates[i] for i in range(0, len(dates), interval)], rotation=45)
+
+    plt.grid(True)
+    plt.tight_layout()
+
+    # Ensure the directory exists
+    filepath = os.path.join(settings.BASE_DIR, 'static', filename)
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+    # Save the figure
+    plt.savefig(filepath)
+    plt.close()
+
 
 def plot_pie_chart(data, title, filename):
     labels = list(data.keys())
@@ -514,12 +567,22 @@ def main(user, user_responses, initial_investment):
         performance_zip = list(
             zip(portfolio_performance_data['portfolio_performance'], portfolio_performance_data['spy_performance']))
 
+        # Prepare data for performance chart
+        dates = [x[0] for x in portfolio_performance_data['portfolio_performance']]
+        portfolio_values = [x[1] for x in portfolio_performance_data['portfolio_performance']]
+        spy_values = [x[1] for x in portfolio_performance_data['spy_performance']]
+
+        # Generate and save performance chart
+        plot_performance_chart(dates, portfolio_values, spy_values, 'static/performance_chart.png')
+
         return {
             'risk_score': risk_score,
             'risk_tolerance': risk_tolerance,
             'allocated_portfolio': allocated_portfolio,
             'portfolio_performance': performance_zip
         }
+
+
 
 # Ensure to add the following for RQ configuration
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')

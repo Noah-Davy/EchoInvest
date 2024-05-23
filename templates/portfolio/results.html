@@ -7,7 +7,6 @@
 {% block content %}
 <div class="container py-5">
     <h2 class="mt-4">Investment Results</h2>
-    <p><strong>Risk Score:</strong> {{ risk_score }}</p>
     <p><strong>Risk Tolerance:</strong> {{ risk_tolerance }}</p>
 
     <div class="card my-4">
@@ -139,6 +138,9 @@
                 </div>
                 <div class="col-md-6">
                     <img src="{{ sector_allocation_chart }}" class="img-fluid" alt="Sector Allocation Pie Chart">
+                </div>
+                <div class="col-md-12 mt-4">
+                    <img src="{{ performance_chart }}" alt="Portfolio vs SPY Performance">
                 </div>
             </div>
         </div>

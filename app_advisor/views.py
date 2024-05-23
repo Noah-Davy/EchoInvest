@@ -21,6 +21,7 @@ from rq.job import Job
 
 
 
+from .utils import plot_pie_chart  # Ensure these imports are correct
 
 def questionnaire(request):
     if request.method == 'POST':
@@ -57,14 +58,13 @@ def questionnaire(request):
                     'allocated_portfolio': results['allocated_portfolio'],
                     'performance_combined': performance_combined,
                     'region_allocation_chart': os.path.join(settings.STATIC_URL, 'region_allocation.png'),
-                    'sector_allocation_chart': os.path.join(settings.STATIC_URL, 'sector_allocation.png')
+                    'sector_allocation_chart': os.path.join(settings.STATIC_URL, 'sector_allocation.png'),
+                    'performance_chart': os.path.join(settings.STATIC_URL, 'performance_chart.png')
                 })
     else:
         form = QuestionnaireForm()
 
     return render(request, 'portfolio/questionnaire.html', {'form': form})
-
-
 def check_job_status(request, job_id):
     job = Job.fetch(job_id, connection=conn)
     return JsonResponse({'status': job.get_status()})

@@ -1216,3 +1216,25 @@ p {
   color: #003c71;
   text-decoration: none;
 }
+
+
+.take-questionnaire-btn {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #003c71;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+.take-questionnaire-btn:hover, .take-questionnaire-btn:active, .take-questionnaire-btn:focus {
+    background: #002f5a;
+}

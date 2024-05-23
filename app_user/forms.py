@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 
 class QuestionnaireForm(forms.Form):
-    initial_investment = forms.IntegerField(label="Initial Investment Amount", min_value=0)
+    initial_investment = forms.IntegerField(label="Initial Investment Amount($)", min_value=0)
 
     q1 = forms.ChoiceField(label="1. In general, how would your best friend describe you as a risk taker?",
                            choices=[('a', 'A real gambler'),
