@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EchoInvest{% endblock title %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <nav class="navbar">
+                <a href="{% url 'home' %}" class="navbar-brand">
+                    <img src="{% static 'nav_logo 1.png' %}" alt="Echo Invest Logo">
+                </a>
+                <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                    &#9776;
+                </button>
+                <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'home_main' %}" class="nav-item">Home</a>
+                        <a href="{% url 'results' %}" class="nav-item">Results</a>
+                        <a href="{% url 'blog' %}" class="nav-item">Blog</a>
+                        <a href="{% url 'questionnaire' %}" class="nav-item">Questionnaire</a>
+                        <a href="{% url 'home_main' %}" class="nav-item">Settings</a>
+                        <a href="{% url 'logout' %}" class="nav-item">Logout</a>
+                    {% else %}
+                        <a href="{% url 'home' %}" class="nav-item">Home</a>
+                        <a href="{% url 'how_it_works' %}" class="nav-item">How it works</a>
+                        <a href="{% url 'blog' %}" class="nav-item">Blog</a>
+                        <a href="{% url 'how_it_works' %}#faq" class="nav-item">FAQ</a>
+                        <a href="{% url 'login' %}" class="nav-item">Log in</a>
+                        <a href="{% url 'register' %}" class="nav-item nav-item-button">Get started</a>
+                    {% endif %}
+
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            {% block content %}
+
+            {% endblock content %}
+        </main>
+        {% block footer %}
+        <footer class="site-footer">
+            <div class="footer-container">
+                <a href="#" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
+                    <img src="{% static 'nav_logo 1.png' %}" alt="Echo Invest Logo" class="footer-logo">
+                </a>
+                <p class="copyright">© 2024 Echo Invest. All rights reserved.</p>
+            </div>
+            <div class="footer-contact">
+                <button type="button" class="contact-us-button">Contact Us</button>
+            </div>
+        </footer>
+        {% endblock footer %}
+    </div>
+
+</body>
+</html>
